@@ -1,0 +1,634 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C1B244155A0A4B9B39823B4 /* formula-one-brown-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8271613104E2AEA6D516321D /* formula-one-brown-tee.png */; };
+		1360D1B0A851BA4F7A957B63 /* LaundryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68A59085B42B899CF4CD631 /* LaundryView.swift */; };
+		136190614308747CF6530CF1 /* ClosetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3089770658F0C085137AF /* ClosetApp.swift */; };
+		1F7C4032161D33237FFDFA5D /* PieceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF16E8CD22DC021A066AE3A /* PieceDetailView.swift */; };
+		2A11B40C54A9205D1B7F7120 /* ClosetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52167DAF01D21D246C0685FB /* ClosetView.swift */; };
+		41BEE59FA3322ECD7A9639FF /* HangerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EAF8CBF5F31ADFD3CA8671 /* HangerView.swift */; };
+		447C7C6ACE85EB8E00D17CF8 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */; };
+		474A45610E9121681DA0F0D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */; };
+		58C56C32FB3422862C5B37AE /* bucees-yellow-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */; };
+		5C34A781EBA5BE2D2DF9FBBD /* AddPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B41EAC7E1870069EFB809F4 /* AddPieceView.swift */; };
+		5E61018BA0A434ADAACB7935 /* red-bull-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */; };
+		62C3C94FC3D6D41C40B38B74 /* ClosetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3197BAE9CBC00B7BF05133A /* ClosetUITests.swift */; };
+		753C7ABD68E2156EF4EFBD14 /* ClosetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EE46033F76307A779C114 /* ClosetTests.swift */; };
+		7614380E9534EEBDBCBA7426 /* codex-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8158D979F0544E2E5BA78D75 /* codex-cream-tee.png */; };
+		A295254FB15DDD07A837F09A /* blue-moon-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */; };
+		A41670F9C2DEA780AD349356 /* levi-wells-olive-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 362553526F7947CB2DE98895 /* levi-wells-olive-tee.png */; };
+		A5B27A5AEB36EB176D492929 /* StarterWardrobe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AAC0BE7F2545613C11BD70 /* StarterWardrobe.swift */; };
+		B6A2F356A804394991A19297 /* dark-waffle-long-sleeve.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BAAD4AC80CF62889D48C47 /* dark-waffle-long-sleeve.png */; };
+		B887FDDCF142DB7BBF434E08 /* stussy-hong-kong-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E1BC6D4EB424683ADD1C6C1 /* stussy-hong-kong-sweatshirt.png */; };
+		BEE5DF30E8B16D0448D7E699 /* vineyard-vines-boat-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = C8561B4F2D1756A58D6A11DB /* vineyard-vines-boat-tee.png */; };
+		C04A55230416F836249E8F6E /* cream-waffle-long-sleeve.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F527BF211197303CEDA5200 /* cream-waffle-long-sleeve.png */; };
+		C96C24A16680292D885F97A2 /* blue-straight-jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BAB176F65E74A04C44EB2 /* blue-straight-jeans.png */; };
+		C9CB7536679A3920AB6DEE54 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9A700B4CC250CD452D3F4 /* CameraView.swift */; };
+		CDBFA6CC280B0FCB88707CD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6FEFD9A13449945C60D7189 /* Assets.xcassets */; };
+		D645AD3ECF8FE3A4EEA01586 /* green-striped-polo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5A92BC79FCFAE43BCB1497 /* green-striped-polo.png */; };
+		EC74C00402D67EB6754369A1 /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */; };
+		EFC1C909533514810E25004A /* washed-charcoal-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D59EBD935C05B1B0A8B7A73F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7279AA660592F917382731BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2ED05ADE6128BC0D13E1745F;
+			remoteInfo = Closet;
+		};
+		D779CEDC67249C917130DC07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7279AA660592F917382731BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2ED05ADE6128BC0D13E1745F;
+			remoteInfo = Closet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04AAC0BE7F2545613C11BD70 /* StarterWardrobe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterWardrobe.swift; sourceTree = "<group>"; };
+		272E6716C3D1B3ACAE23EBEF /* ClosetUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ClosetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-bull-cream-tee.png"; sourceTree = "<group>"; };
+		2B41EAC7E1870069EFB809F4 /* AddPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPieceView.swift; sourceTree = "<group>"; };
+		362553526F7947CB2DE98895 /* levi-wells-olive-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levi-wells-olive-tee.png"; sourceTree = "<group>"; };
+		3DD24941B3E749280714B107 /* ClosetTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ClosetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E5A92BC79FCFAE43BCB1497 /* green-striped-polo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-striped-polo.png"; sourceTree = "<group>"; };
+		3F527BF211197303CEDA5200 /* cream-waffle-long-sleeve.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cream-waffle-long-sleeve.png"; sourceTree = "<group>"; };
+		453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
+		4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-moon-cream-tee.png"; sourceTree = "<group>"; };
+		52167DAF01D21D246C0685FB /* ClosetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetView.swift; sourceTree = "<group>"; };
+		7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bucees-yellow-tee.png"; sourceTree = "<group>"; };
+		80E43D9A6EAE6EAF6BBF0D16 /* Closet.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Closet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8158D979F0544E2E5BA78D75 /* codex-cream-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "codex-cream-tee.png"; sourceTree = "<group>"; };
+		8271613104E2AEA6D516321D /* formula-one-brown-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "formula-one-brown-tee.png"; sourceTree = "<group>"; };
+		85EAF8CBF5F31ADFD3CA8671 /* HangerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangerView.swift; sourceTree = "<group>"; };
+		90BAAD4AC80CF62889D48C47 /* dark-waffle-long-sleeve.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-waffle-long-sleeve.png"; sourceTree = "<group>"; };
+		9E1BC6D4EB424683ADD1C6C1 /* stussy-hong-kong-sweatshirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stussy-hong-kong-sweatshirt.png"; sourceTree = "<group>"; };
+		9FF3089770658F0C085137AF /* ClosetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetApp.swift; sourceTree = "<group>"; };
+		A3197BAE9CBC00B7BF05133A /* ClosetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetUITests.swift; sourceTree = "<group>"; };
+		B68A59085B42B899CF4CD631 /* LaundryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaundryView.swift; sourceTree = "<group>"; };
+		BBF16E8CD22DC021A066AE3A /* PieceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceDetailView.swift; sourceTree = "<group>"; };
+		C8561B4F2D1756A58D6A11DB /* vineyard-vines-boat-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vineyard-vines-boat-tee.png"; sourceTree = "<group>"; };
+		CF7BAB176F65E74A04C44EB2 /* blue-straight-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-straight-jeans.png"; sourceTree = "<group>"; };
+		D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-charcoal-tee.png"; sourceTree = "<group>"; };
+		D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewer.swift; sourceTree = "<group>"; };
+		E2B9A700B4CC250CD452D3F4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		E6FEFD9A13449945C60D7189 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F07EE46033F76307A779C114 /* ClosetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetTests.swift; sourceTree = "<group>"; };
+		F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		05BC2DFEA44610A187ED12DB /* ClosetUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A3197BAE9CBC00B7BF05133A /* ClosetUITests.swift */,
+			);
+			path = ClosetUITests;
+			sourceTree = "<group>";
+		};
+		742CC18055F52B05035200B2 /* Closet */ = {
+			isa = PBXGroup;
+			children = (
+				2B41EAC7E1870069EFB809F4 /* AddPieceView.swift */,
+				E6FEFD9A13449945C60D7189 /* Assets.xcassets */,
+				E2B9A700B4CC250CD452D3F4 /* CameraView.swift */,
+				9FF3089770658F0C085137AF /* ClosetApp.swift */,
+				52167DAF01D21D246C0685FB /* ClosetView.swift */,
+				453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */,
+				85EAF8CBF5F31ADFD3CA8671 /* HangerView.swift */,
+				B68A59085B42B899CF4CD631 /* LaundryView.swift */,
+				D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */,
+				BBF16E8CD22DC021A066AE3A /* PieceDetailView.swift */,
+				F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */,
+				04AAC0BE7F2545613C11BD70 /* StarterWardrobe.swift */,
+				D5A19F2FE8866323DC055B11 /* Resources */,
+			);
+			path = Closet;
+			sourceTree = "<group>";
+		};
+		8E48550BC372D3613E23E4C6 = {
+			isa = PBXGroup;
+			children = (
+				742CC18055F52B05035200B2 /* Closet */,
+				B63342373BBA7E2AFBCFB3EB /* ClosetTests */,
+				05BC2DFEA44610A187ED12DB /* ClosetUITests */,
+				BE543F7CF944F6CDF57057D5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AE2D0F993773CCA06019D31E /* Garments */ = {
+			isa = PBXGroup;
+			children = (
+				4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */,
+				CF7BAB176F65E74A04C44EB2 /* blue-straight-jeans.png */,
+				7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */,
+				8158D979F0544E2E5BA78D75 /* codex-cream-tee.png */,
+				3F527BF211197303CEDA5200 /* cream-waffle-long-sleeve.png */,
+				90BAAD4AC80CF62889D48C47 /* dark-waffle-long-sleeve.png */,
+				8271613104E2AEA6D516321D /* formula-one-brown-tee.png */,
+				3E5A92BC79FCFAE43BCB1497 /* green-striped-polo.png */,
+				362553526F7947CB2DE98895 /* levi-wells-olive-tee.png */,
+				286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */,
+				9E1BC6D4EB424683ADD1C6C1 /* stussy-hong-kong-sweatshirt.png */,
+				C8561B4F2D1756A58D6A11DB /* vineyard-vines-boat-tee.png */,
+				D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */,
+			);
+			path = Garments;
+			sourceTree = "<group>";
+		};
+		B63342373BBA7E2AFBCFB3EB /* ClosetTests */ = {
+			isa = PBXGroup;
+			children = (
+				F07EE46033F76307A779C114 /* ClosetTests.swift */,
+			);
+			path = ClosetTests;
+			sourceTree = "<group>";
+		};
+		BE543F7CF944F6CDF57057D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80E43D9A6EAE6EAF6BBF0D16 /* Closet.app */,
+				3DD24941B3E749280714B107 /* ClosetTests.xctest */,
+				272E6716C3D1B3ACAE23EBEF /* ClosetUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5A19F2FE8866323DC055B11 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AE2D0F993773CCA06019D31E /* Garments */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2ED05ADE6128BC0D13E1745F /* Closet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1A3E80A271DA41143E95412 /* Build configuration list for PBXNativeTarget "Closet" */;
+			buildPhases = (
+				4122891F4DCFF3FF37D1170E /* Sources */,
+				FC749F22D35051F9A9977075 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Closet;
+			packageProductDependencies = (
+			);
+			productName = Closet;
+			productReference = 80E43D9A6EAE6EAF6BBF0D16 /* Closet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		369B4220B99D9C50CD758CAE /* ClosetUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0AD88A8FC14955F87CCC5AFA /* Build configuration list for PBXNativeTarget "ClosetUITests" */;
+			buildPhases = (
+				036FCD4678212156895D36F7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26F92C5BABCCF301BAF87B43 /* PBXTargetDependency */,
+			);
+			name = ClosetUITests;
+			packageProductDependencies = (
+			);
+			productName = ClosetUITests;
+			productReference = 272E6716C3D1B3ACAE23EBEF /* ClosetUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B9A199850F236BDF2BBCB298 /* ClosetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A04360DD5F38FAD38E536C2D /* Build configuration list for PBXNativeTarget "ClosetTests" */;
+			buildPhases = (
+				12B0E02770F08DC6EA5E3806 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96CDC0DBDDB7C48C329FE4B1 /* PBXTargetDependency */,
+			);
+			name = ClosetTests;
+			packageProductDependencies = (
+			);
+			productName = ClosetTests;
+			productReference = 3DD24941B3E749280714B107 /* ClosetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7279AA660592F917382731BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					2ED05ADE6128BC0D13E1745F = {
+						DevelopmentTeam = 4535Q45QTY;
+						ProvisioningStyle = Automatic;
+					};
+					369B4220B99D9C50CD758CAE = {
+						DevelopmentTeam = 4535Q45QTY;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2ED05ADE6128BC0D13E1745F;
+					};
+					B9A199850F236BDF2BBCB298 = {
+						DevelopmentTeam = 4535Q45QTY;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 626EAB506F5015587AD35F1C /* Build configuration list for PBXProject "Closet" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 8E48550BC372D3613E23E4C6;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BE543F7CF944F6CDF57057D5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2ED05ADE6128BC0D13E1745F /* Closet */,
+				B9A199850F236BDF2BBCB298 /* ClosetTests */,
+				369B4220B99D9C50CD758CAE /* ClosetUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FC749F22D35051F9A9977075 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDBFA6CC280B0FCB88707CD7 /* Assets.xcassets in Resources */,
+				A295254FB15DDD07A837F09A /* blue-moon-cream-tee.png in Resources */,
+				C96C24A16680292D885F97A2 /* blue-straight-jeans.png in Resources */,
+				58C56C32FB3422862C5B37AE /* bucees-yellow-tee.png in Resources */,
+				7614380E9534EEBDBCBA7426 /* codex-cream-tee.png in Resources */,
+				C04A55230416F836249E8F6E /* cream-waffle-long-sleeve.png in Resources */,
+				B6A2F356A804394991A19297 /* dark-waffle-long-sleeve.png in Resources */,
+				0C1B244155A0A4B9B39823B4 /* formula-one-brown-tee.png in Resources */,
+				D645AD3ECF8FE3A4EEA01586 /* green-striped-polo.png in Resources */,
+				A41670F9C2DEA780AD349356 /* levi-wells-olive-tee.png in Resources */,
+				5E61018BA0A434ADAACB7935 /* red-bull-cream-tee.png in Resources */,
+				B887FDDCF142DB7BBF434E08 /* stussy-hong-kong-sweatshirt.png in Resources */,
+				BEE5DF30E8B16D0448D7E699 /* vineyard-vines-boat-tee.png in Resources */,
+				EFC1C909533514810E25004A /* washed-charcoal-tee.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		036FCD4678212156895D36F7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62C3C94FC3D6D41C40B38B74 /* ClosetUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12B0E02770F08DC6EA5E3806 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				753C7ABD68E2156EF4EFBD14 /* ClosetTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4122891F4DCFF3FF37D1170E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C34A781EBA5BE2D2DF9FBBD /* AddPieceView.swift in Sources */,
+				C9CB7536679A3920AB6DEE54 /* CameraView.swift in Sources */,
+				136190614308747CF6530CF1 /* ClosetApp.swift in Sources */,
+				2A11B40C54A9205D1B7F7120 /* ClosetView.swift in Sources */,
+				EC74C00402D67EB6754369A1 /* ClothingItem.swift in Sources */,
+				41BEE59FA3322ECD7A9639FF /* HangerView.swift in Sources */,
+				1360D1B0A851BA4F7A957B63 /* LaundryView.swift in Sources */,
+				447C7C6ACE85EB8E00D17CF8 /* PhotoViewer.swift in Sources */,
+				1F7C4032161D33237FFDFA5D /* PieceDetailView.swift in Sources */,
+				474A45610E9121681DA0F0D4 /* SettingsView.swift in Sources */,
+				A5B27A5AEB36EB176D492929 /* StarterWardrobe.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		26F92C5BABCCF301BAF87B43 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2ED05ADE6128BC0D13E1745F /* Closet */;
+			targetProxy = D779CEDC67249C917130DC07 /* PBXContainerItemProxy */;
+		};
+		96CDC0DBDDB7C48C329FE4B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2ED05ADE6128BC0D13E1745F /* Closet */;
+			targetProxy = D59EBD935C05B1B0A8B7A73F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		099F4E64B9876BF5E323950A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Closet;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos of clothes to add them to your closet.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1AB303E732D91A6A5F4096FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Closet.app/Closet";
+			};
+			name = Release;
+		};
+		2D7CD490CD0BEBA15ADA498F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Closet;
+			};
+			name = Debug;
+		};
+		5A9458CEF699BC3264148CE5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Closet;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos of clothes to add them to your closet.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		7DF3D45E8BF42DDCBF59B5E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4535Q45QTY;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8CFFBC877DCB64C66ABBCA1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4535Q45QTY;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		D3261E177E1FFBC4B52A90AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Closet;
+			};
+			name = Release;
+		};
+		D71E98B65CEF8A0384DDDF0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Closet.app/Closet";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0AD88A8FC14955F87CCC5AFA /* Build configuration list for PBXNativeTarget "ClosetUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D7CD490CD0BEBA15ADA498F /* Debug */,
+				D3261E177E1FFBC4B52A90AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		626EAB506F5015587AD35F1C /* Build configuration list for PBXProject "Closet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DF3D45E8BF42DDCBF59B5E3 /* Debug */,
+				8CFFBC877DCB64C66ABBCA1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A04360DD5F38FAD38E536C2D /* Build configuration list for PBXNativeTarget "ClosetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D71E98B65CEF8A0384DDDF0A /* Debug */,
+				1AB303E732D91A6A5F4096FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E1A3E80A271DA41143E95412 /* Build configuration list for PBXNativeTarget "Closet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				099F4E64B9876BF5E323950A /* Debug */,
+				5A9458CEF699BC3264148CE5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7279AA660592F917382731BA /* Project object */;
+}

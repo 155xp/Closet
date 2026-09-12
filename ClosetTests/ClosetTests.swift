@@ -1,9 +1,32 @@
 import XCTest
 import SwiftData
 import UIKit
+import SwiftUI
 @testable import Closet
 
 final class ClosetTests: XCTestCase {
+    @MainActor
+    func testRepeatedFlicksDoNotAmplifyHangerSwing() {
+        for index in 0..<12 {
+            for frameRate in [30.0, 60.0, 120.0] {
+                let spring = HangerSway.spring(index: index)
+                var angle = 0.0
+                var angularVelocity = 0.0
+                var peak = 0.0
+                for frame in 0..<Int(frameRate * 6) {
+                    let time = Double(frame) / frameRate
+                    let velocity = time < 4 ? (Int(time / 0.267) % 2 == 0 ? 20_000.0 : -20_000.0) : 0
+                    spring.update(value: &angle, velocity: &angularVelocity,
+                                  target: HangerSway.targetAngle(velocity: velocity), deltaTime: 1 / frameRate)
+                    peak = max(peak, abs(angle))
+                }
+                XCTAssertLessThanOrEqual(peak, HangerSway.maximumAngle + 0.001,
+                                         "Rapid reversals must not amplify the swing at \(frameRate) fps")
+                XCTAssertEqual(angle, 0, accuracy: 0.01, "Clothes should settle after scrolling stops")
+            }
+        }
+    }
+
     @MainActor
     func testPhotoSurvivesReopeningStoreAndDeletion() throws {
         let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)

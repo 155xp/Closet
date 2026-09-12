@@ -176,7 +176,7 @@ struct RackSection: View {
                         let velocity = Double(current - previous) / interval
                         lastMotionSample = now
                         // Inertia pulls the hem opposite the rail's movement.
-                        swayAngle = max(-11, min(11, -velocity / 150))
+                        swayAngle = HangerSway.targetAngle(velocity: velocity)
                     }
                     .accessibilityIdentifier("rail_\(category.rawValue)")
 
@@ -206,17 +206,29 @@ struct RackSection: View {
     }
 }
 
-private struct HangerSway: ViewModifier {
+struct HangerSway: ViewModifier {
+    static let maximumAngle = 5.0
+
+    static func targetAngle(velocity: Double) -> Double {
+        guard velocity.isFinite else { return 0 }
+        return max(-maximumAngle, min(maximumAngle, -velocity / 250))
+    }
+
+    static func spring(index: Int) -> Spring {
+        // Critical damping keeps repeated flicks from building up a large swing.
+        Spring(response: 0.36 + Double(index % 4) * 0.02, dampingRatio: 1)
+    }
+
     let angle: Double
     let index: Int
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
-        content
-            .rotationEffect(.degrees(reduceMotion ? 0 : angle * (0.9 + Double(index % 3) * 0.08)),
-                            anchor: UnitPoint(x: 0.5, y: 0.025))
-            .animation(reduceMotion ? nil : .spring(response: 0.52 + Double(index % 4) * 0.04,
-                                                    dampingFraction: 0.3), value: angle)
+        // Animate just the rotation, not photo layout when a lazy row appears.
+        content.animation(reduceMotion ? nil : .spring(Self.spring(index: index))) { view in
+            view.rotationEffect(.degrees(reduceMotion ? 0 : angle * (0.9 + Double(index % 3) * 0.05)),
+                                anchor: UnitPoint(x: 0.5, y: 0.025))
+        }
     }
 }
 

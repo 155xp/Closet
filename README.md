@@ -22,7 +22,7 @@ xcodebuild -project Closet.xcodeproj -scheme Closet \
   -derivedDataPath build test CODE_SIGNING_ALLOWED=NO
 ```
 
-Flicking a rail makes the clothes swing from their hanger hooks. The spring response follows scroll velocity, varies slightly between hangers, and settles after scrolling. Reduce Motion disables the sway.
+Flicking a rail makes the clothes sway up to 5° from their hanger hooks. The spring follows scroll velocity and settles without overshooting, including after repeated direction changes. Only rotation is animated, so clothing photos retain their layout as they enter the rail. Reduce Motion disables the sway.
 
 Tests cover saved photos and wash-state persistence, image resizing and transparency, empty-state navigation, add-sheet cancellation, appearance persistence, one-time wardrobe import, adding the new sweatshirt without changing existing laundry, opening included tops and jeans, grid layout and photo zoom gestures, opening a piece after flicking its rail, individual and batch washing with Undo, and camera-permission recovery. Physical camera capture requires an iPhone.
 

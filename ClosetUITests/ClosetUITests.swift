@@ -80,6 +80,24 @@ final class ClosetUITests: XCTestCase {
     }
 
     @MainActor
+    func testRapidRailReversalsKeepPiecesAttached() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--preview-wardrobe"]
+        app.launch()
+        let rail = app.scrollViews["rail_tops"]
+        XCTAssertTrue(rail.waitForExistence(timeout: 10))
+        for _ in 0..<3 {
+            rail.swipeLeft(velocity: .fast)
+            rail.swipeRight(velocity: .fast)
+        }
+        let first = app.buttons["Codex tee"]
+        XCTAssertTrue(first.isHittable)
+        XCTAssertLessThan(abs(first.frame.minY - rail.frame.minY), 12)
+        first.tap()
+        XCTAssertTrue(app.navigationBars["Your piece"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testLaundryIndividualBatchWashAndUndo() {
         let app = XCUIApplication()
         app.launchArguments = ["--preview-wardrobe"]

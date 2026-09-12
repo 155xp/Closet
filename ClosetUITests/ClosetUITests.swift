@@ -52,7 +52,7 @@ final class ClosetUITests: XCTestCase {
         app.launch()
         let count = app.staticTexts["closetCount"]
         XCTAssertTrue(count.waitForExistence(timeout: 10))
-        let populated = NSPredicate(format: "label BEGINSWITH '13 pieces'")
+        let populated = NSPredicate(format: "label BEGINSWITH '23 pieces'")
         expectation(for: populated, evaluatedWith: count)
         waitForExpectations(timeout: 10)
         app.buttons["Codex tee"].tap()
@@ -175,6 +175,41 @@ final class ClosetUITests: XCTestCase {
         app.buttons["zoomPhotoButton"].tap()
         XCTAssertTrue(photo.waitForExistence(timeout: 5))
         app.buttons["closePhotoButton"].tap()
+    }
+
+    @MainActor
+    func testNewBatchAppearsInBothCategories() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--preview-wardrobe"]
+        app.launch()
+        app.buttons["category_tops"].tap()
+        let sweatshirt = app.buttons["Virginia Tech sweatshirt"]
+        for _ in 0..<5 {
+            if sweatshirt.isHittable { break }
+            app.scrollViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(sweatshirt.isHittable)
+        let tops = XCTAttachment(screenshot: app.screenshot())
+        tops.name = "New tops"
+        tops.lifetime = .keepAlways
+        add(tops)
+        sweatshirt.tap()
+        XCTAssertTrue(app.buttons["zoomPhotoButton"].waitForExistence(timeout: 5))
+        app.buttons["zoomPhotoButton"].tap()
+        XCTAssertTrue(app.images["zoomablePhoto"].waitForExistence(timeout: 5))
+        app.buttons["closePhotoButton"].tap()
+        app.navigationBars.buttons.firstMatch.tap()
+        app.navigationBars.buttons.firstMatch.tap()
+        app.buttons["category_bottoms"].tap()
+        XCTAssertTrue(app.buttons["Brown Hollister sweatpants"].waitForExistence(timeout: 5))
+        let jeans = app.buttons["Washed black jeans"]
+        XCTAssertTrue(jeans.isHittable)
+        let bottoms = XCTAttachment(screenshot: app.screenshot())
+        bottoms.name = "New bottoms"
+        bottoms.lifetime = .keepAlways
+        add(bottoms)
+        jeans.tap()
+        XCTAssertTrue(app.buttons["toggleWashButton"].waitForExistence(timeout: 5))
     }
 
     @MainActor

@@ -84,15 +84,15 @@ final class ClosetTests: XCTestCase {
                                           configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         let context = ModelContext(container)
         try StarterWardrobe.importMissing(into: context)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 13)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 23)
         let all = try context.fetch(FetchDescriptor<ClothingItem>())
-        XCTAssertEqual(all.filter { $0.category == .bottoms }.count, 1)
+        XCTAssertEqual(all.filter { $0.category == .bottoms }.count, 6)
         XCTAssertTrue(all.allSatisfy { UIImage(data: $0.photo) != nil })
         context.delete(try XCTUnwrap(all.first))
         try context.save()
         try StarterWardrobe.importMissing(into: context)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 12)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 13)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 22)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 23)
     }
 
     @MainActor
@@ -113,6 +113,35 @@ final class ClosetTests: XCTestCase {
         XCTAssertEqual(pieces.count, 2)
         XCTAssertTrue(existing.needsWashing)
         XCTAssertEqual(pieces.filter { $0.name == "Stüssy Hong Kong sweatshirt" }.count, 1)
+    }
+
+    @MainActor
+    func testNewBatchImportsOnceAndPreservesExistingCloset() throws {
+        let container = try ModelContainer(for: ClothingItem.self, ImportedGarment.self,
+                                          configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let context = ModelContext(container)
+        let originalPhoto = try makePhoto()
+        let existing = ClothingItem(name: "My saved shirt", category: .tops, photo: originalPhoto)
+        existing.needsWashing = true
+        context.insert(existing)
+        // Earlier import receipts include pieces the user may have deleted.
+        for garment in StarterWardrobe.garments.prefix(13) {
+            context.insert(ImportedGarment(key: garment.key))
+        }
+        try context.save()
+        try StarterWardrobe.importMissing(into: context)
+        try StarterWardrobe.importMissing(into: context)
+        let pieces = try context.fetch(FetchDescriptor<ClothingItem>())
+        XCTAssertEqual(pieces.count, 11)
+        XCTAssertEqual(pieces.filter { $0.category == .bottoms }.count, 5)
+        XCTAssertTrue(existing.needsWashing)
+        XCTAssertEqual(existing.photo, originalPhoto)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 23)
+        for garment in StarterWardrobe.garments.suffix(10) {
+            let piece = try XCTUnwrap(pieces.first { $0.name == garment.name })
+            XCTAssertFalse(piece.needsWashing)
+            XCTAssertNotNil(UIImage(data: piece.photo))
+        }
     }
 
     @MainActor

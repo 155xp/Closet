@@ -2,6 +2,15 @@
 
 A native SwiftUI iPhone app based on the supplied clothes-rail reference. Requires iOS 26 and Xcode 26 or later. No packages or backend.
 
+Friends can use the same wardrobe on the web at [closet.enci.dev](https://closet.enci.dev). The site lives in `web/`: swipe the tops, bottoms, and shoes carousels, browse the rails, and send a look with a shareable link.
+
+```sh
+cd web
+npm install
+npm run optimize-garments
+npm run dev
+```
+
 Open `Closet.xcodeproj`, select the Closet scheme and an iPhone simulator, then press Run. To run on your own iPhone, select your Apple development team under Signing & Capabilities and select the connected phone.
 
 The app includes your 17 tops, six bottoms, and two pairs of shoes as retouched transparent PNGs. The home screen has horizontal rails and wooden hangers. Tap Tops or Bottoms to browse a two-column grid. Tap a piece, then its photo, to open a full-screen viewer with pinch zoom up to 6×, panning, double-tap zoom, and a toolbar zoom control. Toolbar controls use the system's Liquid Glass appearance; the empty-rail buttons use SwiftUI's `.glass` button style. Settings supports system, light, and dark appearance. Settings also offers Automatic, Light, and Dark app icons. Light uses the wooden hanger on white; Dark uses a white hanger on a charcoal-to-black gradient. Automatic follows the iPhone icon appearance. The selection is saved by iOS and survives relaunch.

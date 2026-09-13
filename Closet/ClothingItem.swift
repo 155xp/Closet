@@ -5,7 +5,7 @@ enum ClothingCategory: String, CaseIterable, Identifiable, Codable {
     case tops, bottoms, shoes
 
     var id: String { rawValue }
-    var title: String { self == .shoes ? "Shoes" : rawValue }
+    var title: String { rawValue }
     var singular: String {
         switch self {
         case .tops: "top"

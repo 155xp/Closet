@@ -209,7 +209,7 @@ final class ClosetUITests: XCTestCase {
         app.buttons["addPieceButton"].tap()
         let picker = app.buttons["pieceCategoryPicker"]
         picker.tap()
-        app.buttons.matching(NSPredicate(format: "label == 'Shoes' AND identifier != 'category_shoes'")).firstMatch.tap()
+        app.buttons.matching(NSPredicate(format: "label == 'shoes' AND identifier != 'category_shoes'")).firstMatch.tap()
         XCTAssertFalse(app.switches["newPieceNeedsWashing"].exists)
     }
 
@@ -263,7 +263,7 @@ final class ClosetUITests: XCTestCase {
             XCTAssertTrue(add.waitForExistence(timeout: 5))
             add.tap()
             XCTAssertTrue(app.buttons["choosePhotoButton"].waitForExistence(timeout: 5))
-            XCTAssertTrue(app.buttons["pieceCategoryPicker"].label.contains(category == "shoes" ? "Shoes" : category))
+            XCTAssertTrue(app.buttons["pieceCategoryPicker"].label.contains(category))
             app.buttons["cancelAddButton"].tap()
         }
         app.buttons["doneWardrobeButton"].tap()

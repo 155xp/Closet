@@ -9,11 +9,13 @@ struct WardrobeView: View {
     @State private var topID: UUID?
     @State private var bottomID: UUID?
     @State private var shoesID: UUID?
+    @State private var hatID: UUID?
+    @State private var restoredHat = false
     @State private var saveFailed = false
     @State private var addingCategory: ClothingCategory?
 
     private var selectedItems: [ClothingItem] {
-        [topID, bottomID, shoesID].compactMap { id in items.first { $0.id == id } }
+        [topID, bottomID, shoesID, hatID].compactMap { id in items.first { $0.id == id } }
     }
 
     private func wearLabel(for id: UUID?, now: Date) -> String {
@@ -35,6 +37,12 @@ struct WardrobeView: View {
                 GeometryReader { geometry in
                     let outfitHeight = max(180, min(geometry.size.height - 80, geometry.size.width * 1.62))
                     VStack(spacing: 4) {
+                        WardrobeCarousel(category: .hat, items: items.filter { $0.category == .hat },
+                                         selection: $hatID, allowsNoSelection: true) {
+                            addingCategory = .hat
+                        }
+                        .frame(height: outfitHeight * 0.14)
+
                         Text(wearLabel(for: topID, now: timeline.date))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
@@ -43,12 +51,12 @@ struct WardrobeView: View {
                         WardrobeCarousel(category: .tops, items: items.filter { $0.category == .tops }, selection: $topID) {
                             addingCategory = .tops
                         }
-                        .frame(height: outfitHeight * 0.34)
+                        .frame(height: outfitHeight * 0.29)
 
                         WardrobeCarousel(category: .bottoms, items: items.filter { $0.category == .bottoms }, selection: $bottomID) {
                             addingCategory = .bottoms
                         }
-                        .frame(height: outfitHeight * 0.46)
+                        .frame(height: outfitHeight * 0.40)
 
                         Text(wearLabel(for: bottomID, now: timeline.date))
                             .font(.subheadline)
@@ -58,7 +66,7 @@ struct WardrobeView: View {
                         WardrobeCarousel(category: .shoes, items: items.filter { $0.category == .shoes }, selection: $shoesID) {
                             addingCategory = .shoes
                         }
-                        .frame(height: outfitHeight * 0.20)
+                        .frame(height: outfitHeight * 0.17)
                     }
                     .frame(maxHeight: .infinity)
                 }
@@ -82,6 +90,11 @@ struct WardrobeView: View {
                 topID = restoredSelection(topID, category: .tops)
                 bottomID = restoredSelection(bottomID, category: .bottoms)
                 shoesID = restoredSelection(shoesID, category: .shoes)
+                if !restoredHat {
+                    hatID = DailyOutfit.on(.now, in: outfits)?.pieces.first { $0.categoryValue == "hat" }?.itemID
+                    restoredHat = true
+                }
+                if !items.contains(where: { $0.id == hatID && $0.category == .hat }) { hatID = nil }
             }
             .background(ClosetStyle.background)
             .navigationTitle("Wardrobe")
@@ -108,20 +121,28 @@ private struct WardrobeCarousel: View {
     let category: ClothingCategory
     let items: [ClothingItem]
     @Binding var selection: UUID?
+    var allowsNoSelection = false
     var add: () -> Void
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var selectedIndex: Int? { items.firstIndex { $0.id == selection } }
     private var positionLabel: String {
-        guard let selectedIndex else { return "" }
+        guard let selectedIndex else { return allowsNoSelection ? "No hat" : "" }
         return "\(selectedIndex + 1) of \(items.count)"
+    }
+
+    // A real scroll target lets the optional hat row snap back to "No hat".
+    private static let noSelectionID = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
+    private var scrollSelection: Binding<UUID?> {
+        Binding(get: { selection ?? (allowsNoSelection ? Self.noSelectionID : nil) },
+                set: { selection = $0 == Self.noSelectionID ? nil : $0 })
     }
 
     var body: some View {
         GeometryReader { geometry in
             let viewportWidth = geometry.size.width
             let coordinateSpaceName = "outfit_\(category.rawValue)"
-            let width = viewportWidth * (category == .tops ? 0.60 : 0.51)
+            let width = viewportWidth * (category == .hat ? 0.36 : (category == .tops ? 0.60 : 0.51))
             let spacing = -width * 0.14
             let anchor: UnitPoint = category == .tops ? .bottom : .top
 
@@ -136,6 +157,16 @@ private struct WardrobeCarousel: View {
             } else {
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: spacing) {
+                        if allowsNoSelection {
+                            Button("No hat") {
+                                withAnimation(reduceMotion ? nil : .snappy) { selection = nil }
+                            }
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .frame(width: width, height: geometry.size.height)
+                            .accessibilityIdentifier("noHatButton")
+                            .id(Self.noSelectionID)
+                        }
                         ForEach(items) { item in
                             WardrobePhoto(item: item, width: width, height: geometry.size.height)
                             .visualEffect { content, proxy in
@@ -159,7 +190,7 @@ private struct WardrobeCarousel: View {
                 .contentMargins(.horizontal, (geometry.size.width - width) / 2, for: .scrollContent)
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.viewAligned(limitBehavior: .alwaysByOne))
-                .scrollPosition(id: $selection, anchor: .center)
+                .scrollPosition(id: scrollSelection, anchor: .center)
                 .accessibilityIdentifier("wardrobe_\(category.rawValue)")
                 .accessibilityValue(positionLabel)
 

@@ -84,15 +84,15 @@ final class ClosetTests: XCTestCase {
                                           configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         let context = ModelContext(container)
         try StarterWardrobe.importMissing(into: context)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 25)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 35)
         let all = try context.fetch(FetchDescriptor<ClothingItem>())
-        XCTAssertEqual(all.filter { $0.category == .bottoms }.count, 6)
+        XCTAssertEqual(all.filter { $0.category == .bottoms }.count, 8)
         XCTAssertTrue(all.allSatisfy { UIImage(data: $0.photo) != nil })
         context.delete(try XCTUnwrap(all.first))
         try context.save()
         try StarterWardrobe.importMissing(into: context)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 24)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 25)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 34)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 35)
     }
 
     @MainActor
@@ -132,12 +132,12 @@ final class ClosetTests: XCTestCase {
         try StarterWardrobe.importMissing(into: context)
         try StarterWardrobe.importMissing(into: context)
         let pieces = try context.fetch(FetchDescriptor<ClothingItem>())
-        XCTAssertEqual(pieces.count, 13)
-        XCTAssertEqual(pieces.filter { $0.category == .bottoms }.count, 5)
+        XCTAssertEqual(pieces.count, 23)
+        XCTAssertEqual(pieces.filter { $0.category == .bottoms }.count, 7)
         XCTAssertTrue(existing.needsWashing)
         XCTAssertEqual(existing.photo, originalPhoto)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 25)
-        for garment in StarterWardrobe.garments.suffix(12) {
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 35)
+        for garment in StarterWardrobe.garments.dropFirst(13) {
             let piece = try XCTUnwrap(pieces.first { $0.name == garment.name })
             XCTAssertFalse(piece.needsWashing)
             XCTAssertNotNil(UIImage(data: piece.photo))
@@ -169,6 +169,43 @@ final class ClosetTests: XCTestCase {
             let image = try XCTUnwrap(UIImage(data: pair.photo)?.cgImage)
             XCTAssertTrue([CGImageAlphaInfo.premultipliedLast, .premultipliedFirst, .first, .last].contains(image.alphaInfo))
         }
+    }
+
+    @MainActor
+    func testHatBatchPreservesExistingOutfitsAndImportsOnlyTenNewPieces() throws {
+        let container = try ModelContainer(for: ClothingItem.self, ImportedGarment.self, DailyOutfit.self, WornPiece.self,
+                                          configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let context = ModelContext(container)
+        let shirt = ClothingItem(name: "Saved shirt", category: .tops, photo: try makePhoto())
+        context.insert(shirt)
+        try DailyOutfit.save(items: [shirt], in: context)
+        for garment in StarterWardrobe.garments.prefix(25) {
+            context.insert(ImportedGarment(key: garment.key))
+        }
+        try context.save()
+        try StarterWardrobe.importMissing(into: context)
+        try StarterWardrobe.importMissing(into: context)
+        let pieces = try context.fetch(FetchDescriptor<ClothingItem>())
+        XCTAssertEqual(pieces.count, 11)
+        XCTAssertTrue(shirt.needsWashing)
+        let hat = try XCTUnwrap(pieces.first { $0.category == .hat })
+        XCTAssertEqual(hat.categoryValue, "hat")
+        XCTAssertFalse(hat.needsWashing)
+        XCTAssertNotNil(UIImage(systemName: ClothingCategory.hat.symbol))
+        let before = try XCTUnwrap(context.fetch(FetchDescriptor<DailyOutfit>()).first)
+        XCTAssertEqual(before.pieces.map(\.itemID), [shirt.id])
+        try DailyOutfit.save(items: [shirt, hat], in: context)
+        let withHat = try XCTUnwrap(context.fetch(FetchDescriptor<DailyOutfit>()).first)
+        XCTAssertEqual(withHat.pieces.count, 2)
+        XCTAssertEqual(withHat.pieces.first { $0.categoryValue == "hat" }?.photo, hat.photo)
+        XCTAssertTrue(hat.needsWashing)
+        try DailyOutfit.save(items: [shirt], in: context)
+        let withoutHat = try XCTUnwrap(context.fetch(FetchDescriptor<DailyOutfit>()).first)
+        XCTAssertFalse(withoutHat.pieces.contains { $0.categoryValue == "hat" })
+        // Updating today's outfit does not silently mark a worn piece clean.
+        XCTAssertTrue(hat.needsWashing)
+        hat.markWashed()
+        XCTAssertFalse(hat.needsWashing)
     }
 
     @MainActor

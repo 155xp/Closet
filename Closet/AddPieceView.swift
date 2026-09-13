@@ -37,8 +37,8 @@ struct AddPieceView: View {
                             Image(uiImage: image)
                                 .resizable().scaledToFit().frame(height: 210)
                                 .accessibilityLabel("Selected clothing photo")
-                        } else if selectedCategory == .shoes {
-                            Image(systemName: "shoe.2")
+                        } else if selectedCategory == .shoes || selectedCategory == .hat {
+                            Image(systemName: selectedCategory.symbol)
                                 .font(.system(size: 70, weight: .ultraLight))
                                 .foregroundStyle(.secondary)
                                 .padding(.top, 24)

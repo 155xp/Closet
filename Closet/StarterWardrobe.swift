@@ -40,7 +40,17 @@ enum StarterWardrobe {
         .init(key: "deep-navy-sweatshirt", name: "Deep navy sweatshirt"),
         .init(key: "washed-blue-wide-jeans", name: "Washed blue jeans", category: .bottoms),
         .init(key: "taupe-shearling-clogs", name: "Taupe shearling clogs", category: .shoes),
-        .init(key: "black-on-sneakers", name: "Black On sneakers", category: .shoes)
+        .init(key: "black-on-sneakers", name: "Black On sneakers", category: .shoes),
+        .init(key: "brown-hammer-cap", name: "Hammer the Over cap", category: .hat),
+        .init(key: "white-snoopy-tee", name: "Snoopy tee"),
+        .init(key: "burgundy-u-tee", name: "Burgundy Uniqlo U tee"),
+        .init(key: "charcoal-u-tee", name: "Charcoal Uniqlo U tee"),
+        .init(key: "white-u-tee", name: "White Uniqlo U tee"),
+        .init(key: "cream-manhattan-tee", name: "Manhattan Mini Mart tee"),
+        .init(key: "cream-knit-sweater", name: "Cream knit sweater"),
+        .init(key: "cream-guinness-sweatshirt", name: "Guinness sweatshirt"),
+        .init(key: "washed-gray-jeans", name: "Washed gray jeans", category: .bottoms),
+        .init(key: "brown-baggy-trousers", name: "Brown baggy trousers", category: .bottoms)
     ]
 
     /// Import receipts survive deleting a piece, so later launches respect removals.

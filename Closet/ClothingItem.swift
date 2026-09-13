@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 enum ClothingCategory: String, CaseIterable, Identifiable, Codable {
-    case tops, bottoms, shoes
+    case tops, bottoms, shoes, hat
 
     var id: String { rawValue }
     var title: String { rawValue }
@@ -11,6 +11,7 @@ enum ClothingCategory: String, CaseIterable, Identifiable, Codable {
         case .tops: "top"
         case .bottoms: "bottom"
         case .shoes: "pair of shoes"
+        case .hat: "hat"
         }
     }
     var symbol: String {
@@ -18,6 +19,7 @@ enum ClothingCategory: String, CaseIterable, Identifiable, Codable {
         case .tops: "tshirt"
         case .bottoms: "hanger"
         case .shoes: "shoe.2"
+        case .hat: "hat.cap"
         }
     }
     var canBeWashed: Bool { self != .shoes }

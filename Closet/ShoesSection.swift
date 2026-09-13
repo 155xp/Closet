@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct ShoesSection: View {
+    var category: ClothingCategory = .shoes
     let items: [ClothingItem]
     var add: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            NavigationLink(value: ClothingCategory.shoes) {
+            NavigationLink(value: category) {
                 HStack(spacing: 10) {
-                    Text("shoes").font(.title2.weight(.semibold))
+                    Text(category.title).font(.title2.weight(.semibold))
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15, weight: .medium))
                         .foregroundStyle(.tertiary)
@@ -18,14 +19,14 @@ struct ShoesSection: View {
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 20)
-            .accessibilityIdentifier("category_shoes")
+            .accessibilityIdentifier("category_\(category.rawValue)")
 
             if items.isEmpty {
-                Button("Add shoes", systemImage: "plus", action: add)
+                Button("Add \(category.title)", systemImage: "plus", action: add)
                     .buttonStyle(.glass)
                     .tint(.primary)
                     .frame(maxWidth: .infinity, minHeight: 160)
-                    .accessibilityIdentifier("emptyAdd_shoes")
+                    .accessibilityIdentifier("emptyAdd_\(category.rawValue)")
             } else {
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 12) {
@@ -38,7 +39,7 @@ struct ShoesSection: View {
                             .buttonStyle(.plain)
                             .accessibilityLabel(item.name)
                         }
-                        Button("Add shoes", systemImage: "plus", action: add)
+                        Button("Add \(category.title)", systemImage: "plus", action: add)
                             .labelStyle(.iconOnly)
                             .buttonStyle(.glass)
                             .tint(.primary)
@@ -49,7 +50,7 @@ struct ShoesSection: View {
                 .contentMargins(.horizontal, 20, for: .scrollContent)
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.viewAligned)
-                .accessibilityIdentifier("shoesRow")
+                .accessibilityIdentifier("\(category.rawValue)Row")
             }
         }
         .padding(.top, 24)

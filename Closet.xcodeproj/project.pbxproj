@@ -10,6 +10,7 @@
 		0C1B244155A0A4B9B39823B4 /* formula-one-brown-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8271613104E2AEA6D516321D /* formula-one-brown-tee.png */; };
 		1360D1B0A851BA4F7A957B63 /* LaundryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68A59085B42B899CF4CD631 /* LaundryView.swift */; };
 		136190614308747CF6530CF1 /* ClosetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3089770658F0C085137AF /* ClosetApp.swift */; };
+		1C78CBFDB49BA9282E15013B /* cream-guinness-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FD91652C3EACA63BBB9E70E /* cream-guinness-sweatshirt.png */; };
 		1F7C4032161D33237FFDFA5D /* PieceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF16E8CD22DC021A066AE3A /* PieceDetailView.swift */; };
 		2A11B40C54A9205D1B7F7120 /* ClosetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52167DAF01D21D246C0685FB /* ClosetView.swift */; };
 		2BF2578694A7C9939774FEC0 /* slate-blue-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = DAB7C3529182AE7801A0890E /* slate-blue-sweatshirt.png */; };
@@ -17,16 +18,23 @@
 		447C7C6ACE85EB8E00D17CF8 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */; };
 		45930C854C373F7AE2930755 /* OutfitCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8BCDBF0BA877568E061246 /* OutfitCalendarView.swift */; };
 		474A45610E9121681DA0F0D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */; };
+		53D5EB3F04F1E38685F0FAE8 /* brown-baggy-trousers.png in Resources */ = {isa = PBXBuildFile; fileRef = DA53FFE0ADE4D9072F35972F /* brown-baggy-trousers.png */; };
 		58C56C32FB3422862C5B37AE /* bucees-yellow-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */; };
 		5A8D9C80EE575EFED03A4FF3 /* washed-blue-wide-jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = EDD8F0B13B5123F9C0B287EC /* washed-blue-wide-jeans.png */; };
 		5C34A781EBA5BE2D2DF9FBBD /* AddPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B41EAC7E1870069EFB809F4 /* AddPieceView.swift */; };
+		5D80549937E38179B6E6E604 /* burgundy-u-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8534718E9C36FEBF4EEB156A /* burgundy-u-tee.png */; };
 		5E61018BA0A434ADAACB7935 /* red-bull-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */; };
 		62C3C94FC3D6D41C40B38B74 /* ClosetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3197BAE9CBC00B7BF05133A /* ClosetUITests.swift */; };
+		673C1C72ECF2226B5AC3E125 /* charcoal-u-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = E9399B2D82014D645B5B0223 /* charcoal-u-tee.png */; };
 		696580B9E8EBBADD625D385E /* ShoesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACAA2A4444B270363B4FA5 /* ShoesSection.swift */; };
 		753C7ABD68E2156EF4EFBD14 /* ClosetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EE46033F76307A779C114 /* ClosetTests.swift */; };
 		7614380E9534EEBDBCBA7426 /* codex-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8158D979F0544E2E5BA78D75 /* codex-cream-tee.png */; };
 		791887FFA7536B94C70DB136 /* black-on-sneakers.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E72514C7CCE5C1C5109FE9 /* black-on-sneakers.png */; };
+		7EA5E66232F51BF19A571657 /* white-snoopy-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B383BE6435250B800FF4C3 /* white-snoopy-tee.png */; };
+		8531290F563B426E366912FA /* brown-hammer-cap.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FA9964DAC51DBA98C2785D /* brown-hammer-cap.png */; };
+		878E1F936B21A4558DDD094A /* cream-manhattan-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = E2F6FCA45F9908A275FB7101 /* cream-manhattan-tee.png */; };
 		97506AECC83DD20F3BB0D743 /* navy-hollister-sweatpants.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7527938317FB3A733872C8 /* navy-hollister-sweatpants.png */; };
+		9F925A9FA71A1C59047D6024 /* cream-knit-sweater.png in Resources */ = {isa = PBXBuildFile; fileRef = 4053B14EE77A7B02D58166A7 /* cream-knit-sweater.png */; };
 		A08676F402CEA10407DA6F9E /* washed-charcoal-hoodie.png in Resources */ = {isa = PBXBuildFile; fileRef = B55B9EE5871DB1313EEDC15B /* washed-charcoal-hoodie.png */; };
 		A295254FB15DDD07A837F09A /* blue-moon-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */; };
 		A41670F9C2DEA780AD349356 /* levi-wells-olive-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 362553526F7947CB2DE98895 /* levi-wells-olive-tee.png */; };
@@ -47,8 +55,10 @@
 		D645AD3ECF8FE3A4EEA01586 /* green-striped-polo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5A92BC79FCFAE43BCB1497 /* green-striped-polo.png */; };
 		D6AC27C47F5E2BBA96EC70A0 /* WardrobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00368527A07133587E79252 /* WardrobeView.swift */; };
 		E22239E396B90CCE2873F173 /* deep-navy-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C14D4A3D9E57A5098A5655 /* deep-navy-sweatshirt.png */; };
+		E36ECE91EDB16894C7685419 /* white-u-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 867BA78C72CDE2AC1A3DE075 /* white-u-tee.png */; };
 		EC74C00402D67EB6754369A1 /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */; };
 		EFC1C909533514810E25004A /* washed-charcoal-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */; };
+		F917DDCD9BAAA667856B8CE2 /* washed-gray-jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = 332CC14A120691F043FB2213 /* washed-gray-jeans.png */; };
 		FFB68265ADF7E5A9C42B5ED0 /* virginia-tech-gray-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = A3AD79ED52494DA310394BB1 /* virginia-tech-gray-sweatshirt.png */; };
 /* End PBXBuildFile section */
 
@@ -75,14 +85,19 @@
 		10ACAA2A4444B270363B4FA5 /* ShoesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoesSection.swift; sourceTree = "<group>"; };
 		17FF9B79C77E600D7E4C72FF /* charcoal-sweatpants.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "charcoal-sweatpants.png"; sourceTree = "<group>"; };
 		1ADED046D02766BDC19A246E /* washed-black-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-black-jeans.png"; sourceTree = "<group>"; };
+		1FD91652C3EACA63BBB9E70E /* cream-guinness-sweatshirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cream-guinness-sweatshirt.png"; sourceTree = "<group>"; };
 		272E6716C3D1B3ACAE23EBEF /* ClosetUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ClosetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-bull-cream-tee.png"; sourceTree = "<group>"; };
 		29C14D4A3D9E57A5098A5655 /* deep-navy-sweatshirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deep-navy-sweatshirt.png"; sourceTree = "<group>"; };
 		2B41EAC7E1870069EFB809F4 /* AddPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPieceView.swift; sourceTree = "<group>"; };
+		31B383BE6435250B800FF4C3 /* white-snoopy-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-snoopy-tee.png"; sourceTree = "<group>"; };
+		332CC14A120691F043FB2213 /* washed-gray-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-gray-jeans.png"; sourceTree = "<group>"; };
+		33FA9964DAC51DBA98C2785D /* brown-hammer-cap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brown-hammer-cap.png"; sourceTree = "<group>"; };
 		362553526F7947CB2DE98895 /* levi-wells-olive-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levi-wells-olive-tee.png"; sourceTree = "<group>"; };
 		3DD24941B3E749280714B107 /* ClosetTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ClosetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5A92BC79FCFAE43BCB1497 /* green-striped-polo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-striped-polo.png"; sourceTree = "<group>"; };
 		3F527BF211197303CEDA5200 /* cream-waffle-long-sleeve.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cream-waffle-long-sleeve.png"; sourceTree = "<group>"; };
+		4053B14EE77A7B02D58166A7 /* cream-knit-sweater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cream-knit-sweater.png"; sourceTree = "<group>"; };
 		453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
 		4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-moon-cream-tee.png"; sourceTree = "<group>"; };
 		52167DAF01D21D246C0685FB /* ClosetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetView.swift; sourceTree = "<group>"; };
@@ -94,7 +109,9 @@
 		80F534ABADF0494EDC358637 /* heather-gray-hoodie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heather-gray-hoodie.png"; sourceTree = "<group>"; };
 		8158D979F0544E2E5BA78D75 /* codex-cream-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "codex-cream-tee.png"; sourceTree = "<group>"; };
 		8271613104E2AEA6D516321D /* formula-one-brown-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "formula-one-brown-tee.png"; sourceTree = "<group>"; };
+		8534718E9C36FEBF4EEB156A /* burgundy-u-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "burgundy-u-tee.png"; sourceTree = "<group>"; };
 		85EAF8CBF5F31ADFD3CA8671 /* HangerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangerView.swift; sourceTree = "<group>"; };
+		867BA78C72CDE2AC1A3DE075 /* white-u-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-u-tee.png"; sourceTree = "<group>"; };
 		90BAAD4AC80CF62889D48C47 /* dark-waffle-long-sleeve.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-waffle-long-sleeve.png"; sourceTree = "<group>"; };
 		9E1BC6D4EB424683ADD1C6C1 /* stussy-hong-kong-sweatshirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stussy-hong-kong-sweatshirt.png"; sourceTree = "<group>"; };
 		9FF3089770658F0C085137AF /* ClosetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetApp.swift; sourceTree = "<group>"; };
@@ -108,11 +125,14 @@
 		D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-charcoal-tee.png"; sourceTree = "<group>"; };
 		D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewer.swift; sourceTree = "<group>"; };
 		DA08816EA715B3759A88F80F /* taupe-shearling-clogs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "taupe-shearling-clogs.png"; sourceTree = "<group>"; };
+		DA53FFE0ADE4D9072F35972F /* brown-baggy-trousers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brown-baggy-trousers.png"; sourceTree = "<group>"; };
 		DAB7C3529182AE7801A0890E /* slate-blue-sweatshirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slate-blue-sweatshirt.png"; sourceTree = "<group>"; };
 		E00368527A07133587E79252 /* WardrobeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeView.swift; sourceTree = "<group>"; };
 		E2B9A700B4CC250CD452D3F4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		E2F6FCA45F9908A275FB7101 /* cream-manhattan-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cream-manhattan-tee.png"; sourceTree = "<group>"; };
 		E5E72514C7CCE5C1C5109FE9 /* black-on-sneakers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-on-sneakers.png"; sourceTree = "<group>"; };
 		E6FEFD9A13449945C60D7189 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E9399B2D82014D645B5B0223 /* charcoal-u-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "charcoal-u-tee.png"; sourceTree = "<group>"; };
 		EDD8F0B13B5123F9C0B287EC /* washed-blue-wide-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-blue-wide-jeans.png"; sourceTree = "<group>"; };
 		F07EE46033F76307A779C114 /* ClosetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetTests.swift; sourceTree = "<group>"; };
 		F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -167,10 +187,17 @@
 				E5E72514C7CCE5C1C5109FE9 /* black-on-sneakers.png */,
 				4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */,
 				CF7BAB176F65E74A04C44EB2 /* blue-straight-jeans.png */,
+				DA53FFE0ADE4D9072F35972F /* brown-baggy-trousers.png */,
+				33FA9964DAC51DBA98C2785D /* brown-hammer-cap.png */,
 				6AE234A50111DF959D941B08 /* brown-hollister-sweatpants.png */,
 				7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */,
+				8534718E9C36FEBF4EEB156A /* burgundy-u-tee.png */,
 				17FF9B79C77E600D7E4C72FF /* charcoal-sweatpants.png */,
+				E9399B2D82014D645B5B0223 /* charcoal-u-tee.png */,
 				8158D979F0544E2E5BA78D75 /* codex-cream-tee.png */,
+				1FD91652C3EACA63BBB9E70E /* cream-guinness-sweatshirt.png */,
+				4053B14EE77A7B02D58166A7 /* cream-knit-sweater.png */,
+				E2F6FCA45F9908A275FB7101 /* cream-manhattan-tee.png */,
 				3F527BF211197303CEDA5200 /* cream-waffle-long-sleeve.png */,
 				90BAAD4AC80CF62889D48C47 /* dark-waffle-long-sleeve.png */,
 				29C14D4A3D9E57A5098A5655 /* deep-navy-sweatshirt.png */,
@@ -189,6 +216,9 @@
 				EDD8F0B13B5123F9C0B287EC /* washed-blue-wide-jeans.png */,
 				B55B9EE5871DB1313EEDC15B /* washed-charcoal-hoodie.png */,
 				D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */,
+				332CC14A120691F043FB2213 /* washed-gray-jeans.png */,
+				31B383BE6435250B800FF4C3 /* white-snoopy-tee.png */,
+				867BA78C72CDE2AC1A3DE075 /* white-u-tee.png */,
 			);
 			path = Garments;
 			sourceTree = "<group>";
@@ -330,10 +360,17 @@
 				791887FFA7536B94C70DB136 /* black-on-sneakers.png in Resources */,
 				A295254FB15DDD07A837F09A /* blue-moon-cream-tee.png in Resources */,
 				C96C24A16680292D885F97A2 /* blue-straight-jeans.png in Resources */,
+				53D5EB3F04F1E38685F0FAE8 /* brown-baggy-trousers.png in Resources */,
+				8531290F563B426E366912FA /* brown-hammer-cap.png in Resources */,
 				B9763E52A94D67B25BA83E91 /* brown-hollister-sweatpants.png in Resources */,
 				58C56C32FB3422862C5B37AE /* bucees-yellow-tee.png in Resources */,
+				5D80549937E38179B6E6E604 /* burgundy-u-tee.png in Resources */,
 				B669757FFB29AB892390973B /* charcoal-sweatpants.png in Resources */,
+				673C1C72ECF2226B5AC3E125 /* charcoal-u-tee.png in Resources */,
 				7614380E9534EEBDBCBA7426 /* codex-cream-tee.png in Resources */,
+				1C78CBFDB49BA9282E15013B /* cream-guinness-sweatshirt.png in Resources */,
+				9F925A9FA71A1C59047D6024 /* cream-knit-sweater.png in Resources */,
+				878E1F936B21A4558DDD094A /* cream-manhattan-tee.png in Resources */,
 				C04A55230416F836249E8F6E /* cream-waffle-long-sleeve.png in Resources */,
 				B6A2F356A804394991A19297 /* dark-waffle-long-sleeve.png in Resources */,
 				E22239E396B90CCE2873F173 /* deep-navy-sweatshirt.png in Resources */,
@@ -352,6 +389,9 @@
 				5A8D9C80EE575EFED03A4FF3 /* washed-blue-wide-jeans.png in Resources */,
 				A08676F402CEA10407DA6F9E /* washed-charcoal-hoodie.png in Resources */,
 				EFC1C909533514810E25004A /* washed-charcoal-tee.png in Resources */,
+				F917DDCD9BAAA667856B8CE2 /* washed-gray-jeans.png in Resources */,
+				7EA5E66232F51BF19A571657 /* white-snoopy-tee.png in Resources */,
+				E36ECE91EDB16894C7685419 /* white-u-tee.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +458,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLight AppIconDark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = closet;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -430,7 +470,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -477,7 +517,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLight AppIconDark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = closet;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -489,7 +529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

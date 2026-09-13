@@ -20,9 +20,9 @@ struct ClosetView: View {
             ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 0) {
                     ForEach(ClothingCategory.allCases) { category in
-                        if category == .shoes {
-                            ShoesSection(items: items.filter { $0.category == .shoes }) {
-                                addingCategory = .shoes
+                        if category == .shoes || category == .hat {
+                            ShoesSection(category: category, items: items.filter { $0.category == category }) {
+                                addingCategory = category
                             }
                         } else {
                             RackSection(category: category, items: items.filter { $0.category == category }) {

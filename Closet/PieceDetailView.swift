@@ -14,7 +14,7 @@ struct PieceDetailView: View {
             VStack(spacing: 24) {
                 Button { showingPhoto = true } label: {
                     ZStack(alignment: .top) {
-                        if item.category == .shoes {
+                        if item.category == .shoes || item.category == .hat {
                             ShoePhoto(item: item).frame(width: 260, height: 300)
                         } else {
                             ClothesRail().padding(.top, 7)

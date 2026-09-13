@@ -2,12 +2,25 @@ import Foundation
 import SwiftData
 
 enum ClothingCategory: String, CaseIterable, Identifiable, Codable {
-    case tops, bottoms
+    case tops, bottoms, shoes
 
     var id: String { rawValue }
-    var title: String { rawValue.capitalized }
-    var singular: String { self == .tops ? "top" : "bottom" }
-    var symbol: String { self == .tops ? "tshirt" : "hanger" }
+    var title: String { self == .shoes ? "Shoes" : rawValue }
+    var singular: String {
+        switch self {
+        case .tops: "top"
+        case .bottoms: "bottom"
+        case .shoes: "pair of shoes"
+        }
+    }
+    var symbol: String {
+        switch self {
+        case .tops: "tshirt"
+        case .bottoms: "hanger"
+        case .shoes: "shoe.2"
+        }
+    }
+    var canBeWashed: Bool { self != .shoes }
 }
 
 @Model
@@ -26,6 +39,7 @@ final class ClothingItem {
     }
 
     func markWashed(at date: Date = .now) {
+        guard category.canBeWashed else { return }
         needsWashing = false
         lastWashedAt = date
     }

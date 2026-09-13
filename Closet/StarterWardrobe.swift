@@ -38,7 +38,9 @@ enum StarterWardrobe {
         .init(key: "charcoal-sweatpants", name: "Charcoal sweatpants", category: .bottoms),
         .init(key: "navy-hollister-sweatpants", name: "Navy Hollister sweatpants", category: .bottoms),
         .init(key: "deep-navy-sweatshirt", name: "Deep navy sweatshirt"),
-        .init(key: "washed-blue-wide-jeans", name: "Washed blue jeans", category: .bottoms)
+        .init(key: "washed-blue-wide-jeans", name: "Washed blue jeans", category: .bottoms),
+        .init(key: "taupe-shearling-clogs", name: "Taupe shearling clogs", category: .shoes),
+        .init(key: "black-on-sneakers", name: "Black On sneakers", category: .shoes)
     ]
 
     /// Import receipts survive deleting a piece, so later launches respect removals.

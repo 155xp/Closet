@@ -14,8 +14,12 @@ struct PieceDetailView: View {
             VStack(spacing: 24) {
                 Button { showingPhoto = true } label: {
                     ZStack(alignment: .top) {
-                        ClothesRail().padding(.top, 7)
-                        HangingPiece(item: item, width: 280)
+                        if item.category == .shoes {
+                            ShoePhoto(item: item).frame(width: 260, height: 300)
+                        } else {
+                            ClothesRail().padding(.top, 7)
+                            HangingPiece(item: item, width: 280)
+                        }
                     }
                     .overlay(alignment: .bottomTrailing) {
                         Image(systemName: "arrow.up.left.and.arrow.down.right")
@@ -37,31 +41,33 @@ struct PieceDetailView: View {
                         .font(.footnote).foregroundStyle(.tertiary)
                 }
                 .padding(.horizontal, 24)
-                VStack(spacing: 14) {
-                    Label(item.needsWashing ? "Needs washing" : "Clean",
-                          systemImage: item.needsWashing ? "basket" : "checkmark.circle")
-                        .font(.subheadline.weight(.medium))
-                        .foregroundStyle(item.needsWashing ? Color.orange : Color.secondary)
-                        .accessibilityIdentifier("washStatus")
-                    Button {
-                        if item.needsWashing { item.markWashed() }
-                        else { item.needsWashing = true }
-                        do { try context.save() }
-                        catch { context.rollback(); errorMessage = "Couldn't update the wash status. Please try again." }
-                    } label: {
-                        Label(item.needsWashing ? "Mark washed" : "Put in laundry",
-                              systemImage: item.needsWashing ? "checkmark" : "basket")
-                            .padding(.horizontal, 14).padding(.vertical, 6)
+                if item.category.canBeWashed {
+                    VStack(spacing: 14) {
+                        Label(item.needsWashing ? "Needs washing" : "Clean",
+                              systemImage: item.needsWashing ? "basket" : "checkmark.circle")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(item.needsWashing ? Color.orange : Color.secondary)
+                            .accessibilityIdentifier("washStatus")
+                        Button {
+                            if item.needsWashing { item.markWashed() }
+                            else { item.needsWashing = true }
+                            do { try context.save() }
+                            catch { context.rollback(); errorMessage = "Couldn't update the wash status. Please try again." }
+                        } label: {
+                            Label(item.needsWashing ? "Mark washed" : "Put in laundry",
+                                  systemImage: item.needsWashing ? "checkmark" : "basket")
+                                .padding(.horizontal, 14).padding(.vertical, 6)
+                        }
+                        .buttonStyle(.glass)
+                        .tint(.primary)
+                        .accessibilityIdentifier("toggleWashButton")
+                        if let date = item.lastWashedAt {
+                            Text("Last washed \(date.formatted(date: .abbreviated, time: .omitted))")
+                                .font(.footnote).foregroundStyle(.secondary)
+                        }
                     }
-                    .buttonStyle(.glass)
-                    .tint(.primary)
-                    .accessibilityIdentifier("toggleWashButton")
-                    if let date = item.lastWashedAt {
-                        Text("Last washed \(date.formatted(date: .abbreviated, time: .omitted))")
-                            .font(.footnote).foregroundStyle(.secondary)
-                    }
+                    .padding(.bottom, 30)
                 }
-                .padding(.bottom, 30)
             }
         }
         .background(ClosetStyle.background)

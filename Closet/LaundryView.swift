@@ -4,7 +4,7 @@ import SwiftData
 struct LaundryView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Query(filter: #Predicate<ClothingItem> { $0.needsWashing }, sort: \ClothingItem.name)
+    @Query(filter: #Predicate<ClothingItem> { $0.needsWashing && $0.categoryValue != "shoes" }, sort: \ClothingItem.name)
     private var items: [ClothingItem]
     @State private var lastBatch: [(item: ClothingItem, date: Date?)] = []
     @State private var saveError = false
@@ -67,6 +67,7 @@ struct LaundryView: View {
                         Button { wash(items) } label: {
                             Label("Mark all washed", systemImage: "checkmark")
                                 .font(.body.weight(.medium))
+                                .foregroundStyle(Color(uiColor: .systemBackground))
                                 .frame(maxWidth: .infinity).padding(.vertical, 9)
                         }
                         .buttonStyle(.glassProminent)

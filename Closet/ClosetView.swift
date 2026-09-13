@@ -6,38 +6,35 @@ struct ClosetView: View {
     @Query(sort: \ClothingItem.addedAt, order: .reverse) private var items: [ClothingItem]
     @State private var showingSettings = false
     @State private var showingLaundry = false
+    @State private var showingWardrobe = false
+    @State private var showingCalendar = false
     @State private var addingCategory: ClothingCategory?
     @State private var importFailed = false
 
-    private var countLabel: String {
-        let count = items.count
-        guard count > 0 else { return "0 pieces · A little room for you" }
-        let recent = items.filter { $0.addedAt > Calendar.current.date(byAdding: .day, value: -30, to: .now)! }.count
-        return "\(count) \(count == 1 ? "piece" : "pieces") · \(recent) added this month"
+    private var laundryCount: Int {
+        items.filter { $0.category.canBeWashed && $0.needsWashing }.count
     }
 
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(countLabel)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 20)
-                        .padding(.top, 15)
-                        .padding(.bottom, 26)
-                        .accessibilityIdentifier("closetCount")
-
                     ForEach(ClothingCategory.allCases) { category in
-                        RackSection(category: category, items: items.filter { $0.category == category }) {
-                            addingCategory = category
+                        if category == .shoes {
+                            ShoesSection(items: items.filter { $0.category == .shoes }) {
+                                addingCategory = .shoes
+                            }
+                        } else {
+                            RackSection(category: category, items: items.filter { $0.category == category }) {
+                                addingCategory = category
+                            }
                         }
                     }
                 }
                 .padding(.bottom, 24)
             }
             .background(ClosetStyle.background)
-            .navigationTitle("Closet")
+            .navigationTitle("closet")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -51,19 +48,51 @@ struct ClosetView: View {
                         .accessibilityIdentifier("addPieceButton")
                 }
                 ToolbarItem(placement: .bottomBar) {
+                    Button("Wardrobe", systemImage: "tshirt") {
+                        showingWardrobe = true
+                    }
+                    .labelStyle(.titleAndIcon)
+                    .tint(.primary)
+                    .accessibilityIdentifier("wardrobeButton")
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button("Calendar", systemImage: "calendar") { showingCalendar = true }
+                        .labelStyle(.titleAndIcon)
+                        .tint(.primary)
+                        .accessibilityIdentifier("calendarButton")
+                }
+                ToolbarItem(placement: .bottomBar) {
                     Button {
                         showingLaundry = true
                     } label: {
-                        let count = items.filter(\.needsWashing).count
-                        Label(count == 0 ? "Laundry" : "Laundry · \(count)", systemImage: "basket")
-                            .labelStyle(.titleAndIcon)
+                        Image(systemName: "basket")
+                            .overlay(alignment: .topTrailing) {
+                                if laundryCount > 0 {
+                                    Text("\(laundryCount)")
+                                        .font(.system(size: 11, weight: .bold, design: .rounded))
+                                        .monospacedDigit()
+                                        .foregroundStyle(.white)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.6)
+                                        .frame(width: 20, height: 20)
+                                        .background(.red, in: Circle())
+                                        .offset(x: 10, y: -8)
+                                        .accessibilityHidden(true)
+                                }
+                            }
+                            .padding(.trailing, 5)
+                            .padding(.top, 3)
                     }
                     .tint(.primary)
+                    .accessibilityLabel(laundryCount == 0 ? "Laundry" : "Laundry · \(laundryCount)")
+                    .accessibilityValue("\(laundryCount) \(laundryCount == 1 ? "item" : "items") to wash")
                     .accessibilityIdentifier("laundryButton")
                 }
             }
             .sheet(isPresented: $showingSettings) { SettingsView() }
             .sheet(isPresented: $showingLaundry) { LaundryView() }
+            .sheet(isPresented: $showingCalendar) { OutfitCalendarView() }
+            .fullScreenCover(isPresented: $showingWardrobe) { WardrobeView() }
             .sheet(item: $addingCategory) { category in AddPieceView(initialCategory: category) }
             .navigationDestination(for: ClothingCategory.self) { category in
                 CategoryView(category: category)
@@ -121,11 +150,16 @@ struct RackSection: View {
 
             GeometryReader { geometry in
                 let slotWidth = min(190.0, max(140.0, geometry.size.width * 0.405))
+                let slotSpacing = -8.0
+                let leadingMargin = 12.0
+                // Leave the last garment in the first column, with the add hanger beside it.
+                let trailingMargin = max(leadingMargin,
+                                         geometry.size.width - leadingMargin - 2 * slotWidth - slotSpacing)
                 ZStack(alignment: .topLeading) {
                     ClothesRail().padding(.top, 7)
 
                     ScrollView(.horizontal) {
-                        LazyHStack(alignment: .top, spacing: -8) {
+                        LazyHStack(alignment: .top, spacing: slotSpacing) {
                             if items.isEmpty {
                                 ForEach(0..<4) { index in
                                     HangerView(category: category)
@@ -157,9 +191,10 @@ struct RackSection: View {
                                 .modifier(HangerSway(angle: swayAngle, index: items.count))
                             }
                         }
-                        .padding(.horizontal, 12)
                         .scrollTargetLayout()
                     }
+                    .contentMargins(.leading, leadingMargin, for: .scrollContent)
+                    .contentMargins(.trailing, trailingMargin, for: .scrollContent)
                     .scrollIndicators(.hidden)
                     .scrollTargetBehavior(.viewAligned)
                     .onScrollPhaseChange { _, phase in
@@ -207,16 +242,16 @@ struct RackSection: View {
 }
 
 struct HangerSway: ViewModifier {
-    static let maximumAngle = 5.0
+    static let maximumAngle = 8.0
 
     static func targetAngle(velocity: Double) -> Double {
         guard velocity.isFinite else { return 0 }
-        return max(-maximumAngle, min(maximumAngle, -velocity / 250))
+        return max(-maximumAngle, min(maximumAngle, -velocity / 180))
     }
 
     static func spring(index: Int) -> Spring {
         // Critical damping keeps repeated flicks from building up a large swing.
-        Spring(response: 0.36 + Double(index % 4) * 0.02, dampingRatio: 1)
+        Spring(response: 0.48 + Double(index % 4) * 0.02, dampingRatio: 1)
     }
 
     let angle: Double
@@ -236,6 +271,14 @@ struct HangingPiece: View {
     let item: ClothingItem
     var width: CGFloat
 
+    private var photoTopPadding: CGFloat {
+        guard item.category == .tops else { return 24 }
+        let hasHood = item.name.localizedCaseInsensitiveContains("hoodie")
+            || item.name.localizedCaseInsensitiveContains("hooded")
+        // A raised hood covers the hanger's shoulders; only its hook emerges.
+        return hasHood ? 8 : 30
+    }
+
     var body: some View {
         ZStack(alignment: .top) {
             HangerView(category: item.category)
@@ -246,7 +289,7 @@ struct HangingPiece: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: width, height: width * (item.category == .tops ? 1.25 : 1.65), alignment: .top)
-                    .padding(.top, item.category == .tops ? 30 : 24)
+                    .padding(.top, photoTopPadding)
                     .shadow(color: .black.opacity(0.07), radius: 3, x: 1, y: 4)
             }
         }
@@ -273,9 +316,6 @@ struct CategoryView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                Text("\(items.count) \(items.count == 1 ? "piece" : "pieces")")
-                    .font(.subheadline).foregroundStyle(.secondary)
-                    .padding(.horizontal, 20).padding(.top, 16)
                 if items.isEmpty {
                     ContentUnavailableView {
                         Label("Your \(category.rawValue)", systemImage: category.symbol)
@@ -294,7 +334,7 @@ struct CategoryView: View {
                             NavigationLink(value: item) { ClothingGridCell(item: item) }
                                 .buttonStyle(.plain)
                                 .accessibilityLabel(item.name)
-                                .accessibilityValue(item.needsWashing ? "Needs washing" : "Clean")
+                                .accessibilityValue(item.category.canBeWashed ? (item.needsWashing ? "Needs washing" : "Clean") : "")
                         }
                     }
                     .padding(20)
@@ -318,27 +358,18 @@ private struct ClothingGridCell: View {
     let item: ClothingItem
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 9) {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color(uiColor: .secondarySystemGroupedBackground))
-                .aspectRatio(0.85, contentMode: .fit)
-                .overlay {
-                    if let image = UIImage(data: item.photo) {
-                        Image(uiImage: image)
-                            .resizable().scaledToFit().padding(12)
-                    }
+        Color.clear
+            .aspectRatio(item.category == .bottoms ? 0.7 : 1, contentMode: .fit)
+            .overlay {
+                if let image = UIImage(data: item.photo) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .padding(4)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-            Text(item.name)
-                .font(.subheadline.weight(.medium))
-                .lineLimit(2)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            if item.needsWashing {
-                Label("Needs washing", systemImage: "basket")
-                    .font(.caption).foregroundStyle(.secondary)
             }
-        }
+            .contentShape(Rectangle())
     }
 }
 
-#Preview { ClosetView().modelContainer(for: ClothingItem.self, inMemory: true) }
+#Preview { ClosetView().modelContainer(for: [ClothingItem.self, DailyOutfit.self, WornPiece.self], inMemory: true) }

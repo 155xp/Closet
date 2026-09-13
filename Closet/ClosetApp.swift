@@ -10,7 +10,7 @@ struct ClosetApp: App {
         let ephemeral = ProcessInfo.processInfo.arguments.contains("--empty-closet")
             || ProcessInfo.processInfo.arguments.contains("--preview-wardrobe")
         do {
-            container = try ModelContainer(for: ClothingItem.self, ImportedGarment.self,
+            container = try ModelContainer(for: ClothingItem.self, ImportedGarment.self, DailyOutfit.self, WornPiece.self,
                                            configurations: ModelConfiguration(isStoredInMemoryOnly: ephemeral))
         } catch {
             fatalError("Couldn't open the closet: \(error)")

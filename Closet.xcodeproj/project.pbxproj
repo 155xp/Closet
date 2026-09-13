@@ -15,14 +15,17 @@
 		2BF2578694A7C9939774FEC0 /* slate-blue-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = DAB7C3529182AE7801A0890E /* slate-blue-sweatshirt.png */; };
 		41BEE59FA3322ECD7A9639FF /* HangerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EAF8CBF5F31ADFD3CA8671 /* HangerView.swift */; };
 		447C7C6ACE85EB8E00D17CF8 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */; };
+		45930C854C373F7AE2930755 /* OutfitCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8BCDBF0BA877568E061246 /* OutfitCalendarView.swift */; };
 		474A45610E9121681DA0F0D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */; };
 		58C56C32FB3422862C5B37AE /* bucees-yellow-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */; };
 		5A8D9C80EE575EFED03A4FF3 /* washed-blue-wide-jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = EDD8F0B13B5123F9C0B287EC /* washed-blue-wide-jeans.png */; };
 		5C34A781EBA5BE2D2DF9FBBD /* AddPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B41EAC7E1870069EFB809F4 /* AddPieceView.swift */; };
 		5E61018BA0A434ADAACB7935 /* red-bull-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */; };
 		62C3C94FC3D6D41C40B38B74 /* ClosetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3197BAE9CBC00B7BF05133A /* ClosetUITests.swift */; };
+		696580B9E8EBBADD625D385E /* ShoesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACAA2A4444B270363B4FA5 /* ShoesSection.swift */; };
 		753C7ABD68E2156EF4EFBD14 /* ClosetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EE46033F76307A779C114 /* ClosetTests.swift */; };
 		7614380E9534EEBDBCBA7426 /* codex-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 8158D979F0544E2E5BA78D75 /* codex-cream-tee.png */; };
+		791887FFA7536B94C70DB136 /* black-on-sneakers.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E72514C7CCE5C1C5109FE9 /* black-on-sneakers.png */; };
 		97506AECC83DD20F3BB0D743 /* navy-hollister-sweatpants.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7527938317FB3A733872C8 /* navy-hollister-sweatpants.png */; };
 		A08676F402CEA10407DA6F9E /* washed-charcoal-hoodie.png in Resources */ = {isa = PBXBuildFile; fileRef = B55B9EE5871DB1313EEDC15B /* washed-charcoal-hoodie.png */; };
 		A295254FB15DDD07A837F09A /* blue-moon-cream-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */; };
@@ -34,12 +37,15 @@
 		B887FDDCF142DB7BBF434E08 /* stussy-hong-kong-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E1BC6D4EB424683ADD1C6C1 /* stussy-hong-kong-sweatshirt.png */; };
 		B9763E52A94D67B25BA83E91 /* brown-hollister-sweatpants.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AE234A50111DF959D941B08 /* brown-hollister-sweatpants.png */; };
 		BEE5DF30E8B16D0448D7E699 /* vineyard-vines-boat-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = C8561B4F2D1756A58D6A11DB /* vineyard-vines-boat-tee.png */; };
+		BF9A654BFAB3E0FD5E6DD5BF /* taupe-shearling-clogs.png in Resources */ = {isa = PBXBuildFile; fileRef = DA08816EA715B3759A88F80F /* taupe-shearling-clogs.png */; };
 		C04A55230416F836249E8F6E /* cream-waffle-long-sleeve.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F527BF211197303CEDA5200 /* cream-waffle-long-sleeve.png */; };
 		C35EBF5D959416A1BDFEF850 /* heather-gray-hoodie.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F534ABADF0494EDC358637 /* heather-gray-hoodie.png */; };
 		C96C24A16680292D885F97A2 /* blue-straight-jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7BAB176F65E74A04C44EB2 /* blue-straight-jeans.png */; };
 		C9CB7536679A3920AB6DEE54 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B9A700B4CC250CD452D3F4 /* CameraView.swift */; };
 		CDBFA6CC280B0FCB88707CD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6FEFD9A13449945C60D7189 /* Assets.xcassets */; };
+		D02984554F9E8B68B9EBAB77 /* DailyOutfit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73039EC1E1B9EDC47BB8DA96 /* DailyOutfit.swift */; };
 		D645AD3ECF8FE3A4EEA01586 /* green-striped-polo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5A92BC79FCFAE43BCB1497 /* green-striped-polo.png */; };
+		D6AC27C47F5E2BBA96EC70A0 /* WardrobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00368527A07133587E79252 /* WardrobeView.swift */; };
 		E22239E396B90CCE2873F173 /* deep-navy-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C14D4A3D9E57A5098A5655 /* deep-navy-sweatshirt.png */; };
 		EC74C00402D67EB6754369A1 /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */; };
 		EFC1C909533514810E25004A /* washed-charcoal-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */; };
@@ -65,6 +71,8 @@
 
 /* Begin PBXFileReference section */
 		04AAC0BE7F2545613C11BD70 /* StarterWardrobe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterWardrobe.swift; sourceTree = "<group>"; };
+		0C8BCDBF0BA877568E061246 /* OutfitCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitCalendarView.swift; sourceTree = "<group>"; };
+		10ACAA2A4444B270363B4FA5 /* ShoesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoesSection.swift; sourceTree = "<group>"; };
 		17FF9B79C77E600D7E4C72FF /* charcoal-sweatpants.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "charcoal-sweatpants.png"; sourceTree = "<group>"; };
 		1ADED046D02766BDC19A246E /* washed-black-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-black-jeans.png"; sourceTree = "<group>"; };
 		272E6716C3D1B3ACAE23EBEF /* ClosetUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ClosetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +88,7 @@
 		52167DAF01D21D246C0685FB /* ClosetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetView.swift; sourceTree = "<group>"; };
 		6A7527938317FB3A733872C8 /* navy-hollister-sweatpants.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navy-hollister-sweatpants.png"; sourceTree = "<group>"; };
 		6AE234A50111DF959D941B08 /* brown-hollister-sweatpants.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brown-hollister-sweatpants.png"; sourceTree = "<group>"; };
+		73039EC1E1B9EDC47BB8DA96 /* DailyOutfit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyOutfit.swift; sourceTree = "<group>"; };
 		7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bucees-yellow-tee.png"; sourceTree = "<group>"; };
 		80E43D9A6EAE6EAF6BBF0D16 /* Closet.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Closet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F534ABADF0494EDC358637 /* heather-gray-hoodie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heather-gray-hoodie.png"; sourceTree = "<group>"; };
@@ -98,8 +107,11 @@
 		CF7BAB176F65E74A04C44EB2 /* blue-straight-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-straight-jeans.png"; sourceTree = "<group>"; };
 		D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-charcoal-tee.png"; sourceTree = "<group>"; };
 		D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewer.swift; sourceTree = "<group>"; };
+		DA08816EA715B3759A88F80F /* taupe-shearling-clogs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "taupe-shearling-clogs.png"; sourceTree = "<group>"; };
 		DAB7C3529182AE7801A0890E /* slate-blue-sweatshirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slate-blue-sweatshirt.png"; sourceTree = "<group>"; };
+		E00368527A07133587E79252 /* WardrobeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeView.swift; sourceTree = "<group>"; };
 		E2B9A700B4CC250CD452D3F4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		E5E72514C7CCE5C1C5109FE9 /* black-on-sneakers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-on-sneakers.png"; sourceTree = "<group>"; };
 		E6FEFD9A13449945C60D7189 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD8F0B13B5123F9C0B287EC /* washed-blue-wide-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-blue-wide-jeans.png"; sourceTree = "<group>"; };
 		F07EE46033F76307A779C114 /* ClosetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetTests.swift; sourceTree = "<group>"; };
@@ -124,12 +136,16 @@
 				9FF3089770658F0C085137AF /* ClosetApp.swift */,
 				52167DAF01D21D246C0685FB /* ClosetView.swift */,
 				453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */,
+				73039EC1E1B9EDC47BB8DA96 /* DailyOutfit.swift */,
 				85EAF8CBF5F31ADFD3CA8671 /* HangerView.swift */,
 				B68A59085B42B899CF4CD631 /* LaundryView.swift */,
+				0C8BCDBF0BA877568E061246 /* OutfitCalendarView.swift */,
 				D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */,
 				BBF16E8CD22DC021A066AE3A /* PieceDetailView.swift */,
 				F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */,
+				10ACAA2A4444B270363B4FA5 /* ShoesSection.swift */,
 				04AAC0BE7F2545613C11BD70 /* StarterWardrobe.swift */,
+				E00368527A07133587E79252 /* WardrobeView.swift */,
 				D5A19F2FE8866323DC055B11 /* Resources */,
 			);
 			path = Closet;
@@ -148,6 +164,7 @@
 		AE2D0F993773CCA06019D31E /* Garments */ = {
 			isa = PBXGroup;
 			children = (
+				E5E72514C7CCE5C1C5109FE9 /* black-on-sneakers.png */,
 				4CAFB767824AEDF203235085 /* blue-moon-cream-tee.png */,
 				CF7BAB176F65E74A04C44EB2 /* blue-straight-jeans.png */,
 				6AE234A50111DF959D941B08 /* brown-hollister-sweatpants.png */,
@@ -165,6 +182,7 @@
 				286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */,
 				DAB7C3529182AE7801A0890E /* slate-blue-sweatshirt.png */,
 				9E1BC6D4EB424683ADD1C6C1 /* stussy-hong-kong-sweatshirt.png */,
+				DA08816EA715B3759A88F80F /* taupe-shearling-clogs.png */,
 				C8561B4F2D1756A58D6A11DB /* vineyard-vines-boat-tee.png */,
 				A3AD79ED52494DA310394BB1 /* virginia-tech-gray-sweatshirt.png */,
 				1ADED046D02766BDC19A246E /* washed-black-jeans.png */,
@@ -309,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDBFA6CC280B0FCB88707CD7 /* Assets.xcassets in Resources */,
+				791887FFA7536B94C70DB136 /* black-on-sneakers.png in Resources */,
 				A295254FB15DDD07A837F09A /* blue-moon-cream-tee.png in Resources */,
 				C96C24A16680292D885F97A2 /* blue-straight-jeans.png in Resources */,
 				B9763E52A94D67B25BA83E91 /* brown-hollister-sweatpants.png in Resources */,
@@ -326,6 +345,7 @@
 				5E61018BA0A434ADAACB7935 /* red-bull-cream-tee.png in Resources */,
 				2BF2578694A7C9939774FEC0 /* slate-blue-sweatshirt.png in Resources */,
 				B887FDDCF142DB7BBF434E08 /* stussy-hong-kong-sweatshirt.png in Resources */,
+				BF9A654BFAB3E0FD5E6DD5BF /* taupe-shearling-clogs.png in Resources */,
 				BEE5DF30E8B16D0448D7E699 /* vineyard-vines-boat-tee.png in Resources */,
 				FFB68265ADF7E5A9C42B5ED0 /* virginia-tech-gray-sweatshirt.png in Resources */,
 				B2817F89A33F845E39D29421 /* washed-black-jeans.png in Resources */,
@@ -363,12 +383,16 @@
 				136190614308747CF6530CF1 /* ClosetApp.swift in Sources */,
 				2A11B40C54A9205D1B7F7120 /* ClosetView.swift in Sources */,
 				EC74C00402D67EB6754369A1 /* ClothingItem.swift in Sources */,
+				D02984554F9E8B68B9EBAB77 /* DailyOutfit.swift in Sources */,
 				41BEE59FA3322ECD7A9639FF /* HangerView.swift in Sources */,
 				1360D1B0A851BA4F7A957B63 /* LaundryView.swift in Sources */,
+				45930C854C373F7AE2930755 /* OutfitCalendarView.swift in Sources */,
 				447C7C6ACE85EB8E00D17CF8 /* PhotoViewer.swift in Sources */,
 				1F7C4032161D33237FFDFA5D /* PieceDetailView.swift in Sources */,
 				474A45610E9121681DA0F0D4 /* SettingsView.swift in Sources */,
+				696580B9E8EBBADD625D385E /* ShoesSection.swift in Sources */,
 				A5B27A5AEB36EB176D492929 /* StarterWardrobe.swift in Sources */,
+				D6AC27C47F5E2BBA96EC70A0 /* WardrobeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,11 +415,12 @@
 		099F4E64B9876BF5E323950A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLight AppIconDark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Closet;
+				INFOPLIST_KEY_CFBundleDisplayName = closet;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos of clothes to add them to your closet.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -405,7 +430,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -449,11 +474,12 @@
 		5A9458CEF699BC3264148CE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLight AppIconDark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Closet;
+				INFOPLIST_KEY_CFBundleDisplayName = closet;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos of clothes to add them to your closet.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -463,7 +489,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

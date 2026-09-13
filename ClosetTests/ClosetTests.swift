@@ -84,15 +84,15 @@ final class ClosetTests: XCTestCase {
                                           configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         let context = ModelContext(container)
         try StarterWardrobe.importMissing(into: context)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 23)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 25)
         let all = try context.fetch(FetchDescriptor<ClothingItem>())
         XCTAssertEqual(all.filter { $0.category == .bottoms }.count, 6)
         XCTAssertTrue(all.allSatisfy { UIImage(data: $0.photo) != nil })
         context.delete(try XCTUnwrap(all.first))
         try context.save()
         try StarterWardrobe.importMissing(into: context)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 22)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 23)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ClothingItem>()), 24)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 25)
     }
 
     @MainActor
@@ -132,16 +132,122 @@ final class ClosetTests: XCTestCase {
         try StarterWardrobe.importMissing(into: context)
         try StarterWardrobe.importMissing(into: context)
         let pieces = try context.fetch(FetchDescriptor<ClothingItem>())
-        XCTAssertEqual(pieces.count, 11)
+        XCTAssertEqual(pieces.count, 13)
         XCTAssertEqual(pieces.filter { $0.category == .bottoms }.count, 5)
         XCTAssertTrue(existing.needsWashing)
         XCTAssertEqual(existing.photo, originalPhoto)
-        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 23)
-        for garment in StarterWardrobe.garments.suffix(10) {
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<ImportedGarment>()), 25)
+        for garment in StarterWardrobe.garments.suffix(12) {
             let piece = try XCTUnwrap(pieces.first { $0.name == garment.name })
             XCTAssertFalse(piece.needsWashing)
             XCTAssertNotNil(UIImage(data: piece.photo))
         }
+    }
+
+    @MainActor
+    func testShoesImportOnceWithoutChangingClothesOrAddingWashHistory() throws {
+        let container = try ModelContainer(for: ClothingItem.self, ImportedGarment.self,
+                                          configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let context = ModelContext(container)
+        let shirt = ClothingItem(name: "Saved shirt", category: .tops, photo: try makePhoto())
+        shirt.needsWashing = true
+        context.insert(shirt)
+        for garment in StarterWardrobe.garments where garment.category != .shoes {
+            context.insert(ImportedGarment(key: garment.key))
+        }
+        try context.save()
+        try StarterWardrobe.importMissing(into: context)
+        try StarterWardrobe.importMissing(into: context)
+        let shoes = try context.fetch(FetchDescriptor<ClothingItem>()).filter { $0.category == .shoes }
+        XCTAssertEqual(shoes.count, 2)
+        XCTAssertTrue(shirt.needsWashing)
+        for pair in shoes {
+            XCTAssertFalse(pair.category.canBeWashed)
+            XCTAssertFalse(pair.needsWashing)
+            pair.markWashed()
+            XCTAssertNil(pair.lastWashedAt)
+            let image = try XCTUnwrap(UIImage(data: pair.photo)?.cgImage)
+            XCTAssertTrue([CGImageAlphaInfo.premultipliedLast, .premultipliedFirst, .first, .last].contains(image.alphaInfo))
+        }
+    }
+
+    @MainActor
+    func testWearHistoryUsesCalendarDaysAcrossDaylightSaving() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        let item = ClothingItem(name: "Tee", category: .tops, photo: Data())
+        let worn = calendar.date(from: DateComponents(year: 2026, month: 3, day: 8, hour: 23, minute: 55))!
+        let nextMorning = calendar.date(from: DateComponents(year: 2026, month: 3, day: 9, hour: 0, minute: 5))!
+        let outfit = DailyOutfit(day: worn, items: [item])
+        XCTAssertEqual(DailyOutfit.wearLabel(for: item.id, in: [], now: worn, calendar: calendar), "Haven't worn yet")
+        XCTAssertEqual(DailyOutfit.wearLabel(for: item.id, in: [outfit], now: worn, calendar: calendar), "Worn today")
+        XCTAssertEqual(DailyOutfit.wearLabel(for: item.id, in: [outfit], now: nextMorning, calendar: calendar), "Worn 1 day ago")
+        let later = calendar.date(byAdding: .day, value: 4, to: nextMorning)!
+        XCTAssertEqual(DailyOutfit.wearLabel(for: item.id, in: [outfit], now: later, calendar: calendar), "Worn 5 days ago")
+    }
+
+    @MainActor
+    func testDailyOutfitReplacementPersistsAndKeepsDeletedPiecePhotos() throws {
+        let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let configuration = ModelConfiguration(url: directory.appending(path: "outfits.store"))
+        let photo = try makePhoto()
+        let today = Calendar.current.startOfDay(for: .now)
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+        let originalID: UUID
+        let replacementID: UUID
+        do {
+            // Begin with the previous app schema and an existing saved garment.
+            let oldContainer = try ModelContainer(for: ClothingItem.self, ImportedGarment.self, configurations: configuration)
+            let oldContext = ModelContext(oldContainer)
+            let original = ClothingItem(name: "Original tee", category: .tops, photo: photo)
+            original.needsWashing = true
+            originalID = original.id
+            oldContext.insert(original)
+            try oldContext.save()
+        }
+        do {
+            let container = try ModelContainer(for: ClothingItem.self, ImportedGarment.self, DailyOutfit.self, WornPiece.self,
+                                               configurations: configuration)
+            let context = ModelContext(container)
+            let original = try XCTUnwrap(context.fetch(FetchDescriptor<ClothingItem>()).first)
+            XCTAssertTrue(original.needsWashing)
+            XCTAssertEqual(original.photo, photo)
+            let replacement = ClothingItem(name: "Replacement tee", category: .tops, photo: photo)
+            let shoes = ClothingItem(name: "Shoes", category: .shoes, photo: photo)
+            replacementID = replacement.id
+            context.insert(replacement)
+            context.insert(shoes)
+            try DailyOutfit.save(items: [original], on: yesterday, in: context)
+            try DailyOutfit.save(items: [original, shoes], on: today, in: context)
+            try DailyOutfit.save(items: [replacement, shoes], on: today.addingTimeInterval(3600), in: context)
+            XCTAssertTrue(original.needsWashing, "Updating an outfit must not clean previously worn clothes")
+            XCTAssertTrue(replacement.needsWashing)
+            XCTAssertFalse(shoes.needsWashing)
+            XCTAssertNil(shoes.lastWashedAt)
+            let outfits = try context.fetch(FetchDescriptor<DailyOutfit>())
+            XCTAssertEqual(outfits.count, 2)
+            XCTAssertEqual(DailyOutfit.on(today, in: outfits)?.pieces.count, 2)
+            XCTAssertEqual(DailyOutfit.wearLabel(for: originalID, in: outfits), "Worn 1 day ago")
+            XCTAssertEqual(DailyOutfit.wearLabel(for: replacementID, in: outfits), "Worn today")
+            XCTAssertEqual(try context.fetchCount(FetchDescriptor<WornPiece>()), 3)
+            context.delete(original)
+            try context.save()
+        }
+        let reopened = try ModelContainer(for: ClothingItem.self, ImportedGarment.self, DailyOutfit.self, WornPiece.self,
+                                          configurations: configuration)
+        let reopenedContext = ModelContext(reopened)
+        let outfits = try reopenedContext.fetch(FetchDescriptor<DailyOutfit>())
+        let savedItems = try reopenedContext.fetch(FetchDescriptor<ClothingItem>())
+        XCTAssertTrue(try XCTUnwrap(savedItems.first { $0.id == replacementID }).needsWashing)
+        XCTAssertFalse(try XCTUnwrap(savedItems.first { $0.category == .shoes }).needsWashing)
+        XCTAssertEqual(outfits.count, 2)
+        let oldSnapshot = try XCTUnwrap(DailyOutfit.on(yesterday, in: outfits)?.pieces.first)
+        XCTAssertEqual(oldSnapshot.itemID, originalID)
+        XCTAssertEqual(oldSnapshot.photo, photo)
+        XCTAssertEqual(oldSnapshot.name, "Original tee")
+        XCTAssertTrue(try XCTUnwrap(DailyOutfit.on(today, in: outfits)).pieces.contains { $0.itemID == replacementID })
     }
 
     @MainActor

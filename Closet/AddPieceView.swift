@@ -37,6 +37,11 @@ struct AddPieceView: View {
                             Image(uiImage: image)
                                 .resizable().scaledToFit().frame(height: 210)
                                 .accessibilityLabel("Selected clothing photo")
+                        } else if selectedCategory == .shoes {
+                            Image(systemName: "shoe.2")
+                                .font(.system(size: 70, weight: .ultraLight))
+                                .foregroundStyle(.secondary)
+                                .padding(.top, 24)
                         } else {
                             HangerView(category: selectedCategory)
                                 .frame(width: 145)
@@ -63,7 +68,9 @@ struct AddPieceView: View {
                     .frame(maxWidth: .infinity)
                     .disabled(isLoading)
                 } footer: {
-                    Text("Capture one piece at a time, with the whole garment in the frame.")
+                    Text(category == .shoes
+                         ? "Capture one pair at a time, with both shoes in the frame."
+                         : "Capture one piece at a time, with the whole garment in the frame.")
                 }
 
                 Section {
@@ -76,8 +83,10 @@ struct AddPieceView: View {
                         }
                     }
                     .accessibilityIdentifier("pieceCategoryPicker")
-                    Toggle("Needs washing", isOn: $needsWashing)
-                        .accessibilityIdentifier("newPieceNeedsWashing")
+                    if category.canBeWashed {
+                        Toggle("Needs washing", isOn: $needsWashing)
+                            .accessibilityIdentifier("newPieceNeedsWashing")
+                    }
                 } footer: {
                     Text("Photos are saved in the app on this iPhone.")
                 }
@@ -182,7 +191,7 @@ struct AddPieceView: View {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let item = ClothingItem(name: trimmed.isEmpty ? "Untitled \(category.singular)" : trimmed,
                                 category: category, photo: photo)
-        item.needsWashing = needsWashing
+        item.needsWashing = category.canBeWashed && needsWashing
         context.insert(item)
         do {
             try context.save()

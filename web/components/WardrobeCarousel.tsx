@@ -44,21 +44,27 @@ export function WardrobeCarousel({ category, items, selectedKey, onSelect }: Pro
 
   const scrollToKey = useCallback(
     (key: string, behavior: ScrollBehavior) => {
-      const root = scrollerRef.current;
-      const el = itemRefs.current.get(key);
-      if (!root || !el) return;
-      programmatic.current = true;
-      root.scrollTo({
-        left: el.offsetLeft + el.offsetWidth / 2 - root.clientWidth / 2,
-        behavior,
-      });
-      window.setTimeout(
-        () => {
-          programmatic.current = false;
-          updateScales();
-        },
-        behavior === "smooth" ? 320 : 40,
-      );
+      const run = (attempts: number) => {
+        const root = scrollerRef.current;
+        const el = itemRefs.current.get(key);
+        if (!root || !el || el.offsetWidth === 0) {
+          if (attempts > 0) window.requestAnimationFrame(() => run(attempts - 1));
+          return;
+        }
+        programmatic.current = true;
+        root.scrollTo({
+          left: el.offsetLeft + el.offsetWidth / 2 - root.clientWidth / 2,
+          behavior,
+        });
+        window.setTimeout(
+          () => {
+            programmatic.current = false;
+            updateScales();
+          },
+          behavior === "smooth" ? 320 : 40,
+        );
+      };
+      run(24);
     },
     [updateScales],
   );

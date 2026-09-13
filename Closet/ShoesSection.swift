@@ -8,7 +8,7 @@ struct ShoesSection: View {
         VStack(alignment: .leading, spacing: 20) {
             NavigationLink(value: ClothingCategory.shoes) {
                 HStack(spacing: 10) {
-                    Text("Shoes").font(.title2.weight(.semibold))
+                    Text("shoes").font(.title2.weight(.semibold))
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15, weight: .medium))
                         .foregroundStyle(.tertiary)

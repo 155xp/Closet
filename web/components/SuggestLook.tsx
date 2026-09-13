@@ -8,28 +8,33 @@ type Props = {
   suggestion: Suggestion;
 };
 
+function shareText(look: Look, from: string, note: string, url: string) {
+  return [
+    from.trim() ? `${from.trim()} picked a look for you` : "A look from your closet",
+    "",
+    lookSummary(look).replaceAll(" · ", "\n"),
+    note.trim() ? `\n“${note.trim()}”` : "",
+    "",
+    url,
+  ]
+    .filter((line, index, lines) => line !== "" || lines[index - 1] !== "")
+    .join("\n")
+    .trim();
+}
+
 export function SuggestLook({ look, suggestion }: Props) {
   const [open, setOpen] = useState(false);
   const [from, setFrom] = useState(suggestion.from ?? "");
   const [note, setNote] = useState(suggestion.note ?? "");
   const [copied, setCopied] = useState<"link" | "text" | null>(null);
 
-  const href = lookHref(look, { from, note });
-  const absolute = () => new URL(href, window.location.origin).toString();
-  const message = [
-    from.trim() ? `${from.trim()} picked a look for you` : "A look from your closet",
-    "",
-    lookSummary(look).replaceAll(" · ", "\n"),
-    note.trim() ? `\n“${note.trim()}”` : "",
-    "",
-    absolute(),
-  ]
-    .filter((line, index, lines) => line !== "" || lines[index - 1] !== "")
-    .join("\n")
-    .trim();
+  function absoluteUrl() {
+    return new URL(lookHref(look, { from, note }), window.location.origin).toString();
+  }
 
   async function copy(kind: "link" | "text") {
-    const value = kind === "link" ? absolute() : message;
+    const url = absoluteUrl();
+    const value = kind === "link" ? url : shareText(look, from, note, url);
     await navigator.clipboard.writeText(value);
     if (from.trim()) window.localStorage.setItem("closet-from", from.trim());
     setCopied(kind);
@@ -37,11 +42,12 @@ export function SuggestLook({ look, suggestion }: Props) {
   }
 
   async function share() {
+    const url = absoluteUrl();
     if (navigator.share) {
       await navigator.share({
         title: "closet look",
-        text: message,
-        url: absolute(),
+        text: shareText(look, from, note, url),
+        url,
       });
       return;
     }

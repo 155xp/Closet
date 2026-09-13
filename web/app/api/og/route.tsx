@@ -7,9 +7,9 @@ import { getGarment } from "@/lib/wardrobe";
 export const runtime = "nodejs";
 
 async function garmentData(key: string) {
-  const file = path.join(process.cwd(), "public", "garments", `${key}.webp`);
+  const file = path.join(process.cwd(), "public", "og", `${key}.png`);
   const buffer = await readFile(file);
-  return `data:image/webp;base64,${buffer.toString("base64")}`;
+  return `data:image/png;base64,${buffer.toString("base64")}`;
 }
 
 export async function GET(request: Request) {
@@ -39,7 +39,15 @@ export async function GET(request: Request) {
           color: "#1a1a1c",
         }}
       >
-        <div style={{ fontSize: 22, letterSpacing: 4, textTransform: "uppercase", opacity: 0.5 }}>
+        <div
+          style={{
+            fontSize: 22,
+            letterSpacing: 4,
+            textTransform: "uppercase",
+            opacity: 0.5,
+            display: "flex",
+          }}
+        >
           closet
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", gap: 28, marginTop: 28 }}>

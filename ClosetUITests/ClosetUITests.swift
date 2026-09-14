@@ -2,6 +2,49 @@ import XCTest
 
 final class ClosetUITests: XCTestCase {
     @MainActor
+    func testStussyShirtRedTeeAndWasherIndicator() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--preview-wardrobe"]
+        app.launch()
+        XCTAssertTrue(app.buttons["Codex tee"].waitForExistence(timeout: 10))
+        app.buttons["Codex tee"].tap()
+        app.buttons["toggleWashButton"].tap()
+        XCTAssertEqual(app.images["washStatus"].label, "Needs washing")
+        XCTAssertFalse(app.staticTexts["Needs washing"].exists)
+        app.navigationBars.buttons.firstMatch.tap()
+        let rail = XCTAttachment(screenshot: app.screenshot())
+        rail.name = "Simple washer indicator on rail"
+        rail.lifetime = .keepAlways
+        add(rail)
+        app.buttons["category_tops"].tap()
+        let stussy = app.buttons["Stüssy cream waffle long sleeve"]
+        for _ in 0..<12 {
+            if stussy.isHittable { break }
+            app.scrollViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(stussy.isHittable)
+        stussy.tap()
+        XCTAssertTrue(app.buttons["zoomPhotoButton"].waitForExistence(timeout: 5))
+        let shirt = XCTAttachment(screenshot: app.screenshot())
+        shirt.name = "New Stüssy waffle shirt"
+        shirt.lifetime = .keepAlways
+        add(shirt)
+        app.navigationBars.buttons.firstMatch.tap()
+        let red = app.buttons["Burgundy Uniqlo U tee"]
+        for _ in 0..<8 {
+            if red.isHittable { break }
+            app.scrollViews.firstMatch.swipeDown()
+        }
+        XCTAssertTrue(red.isHittable)
+        red.tap()
+        XCTAssertTrue(app.buttons["zoomPhotoButton"].waitForExistence(timeout: 5))
+        let corrected = XCTAttachment(screenshot: app.screenshot())
+        corrected.name = "Corrected red tee proportions"
+        corrected.lifetime = .keepAlways
+        add(corrected)
+    }
+
+    @MainActor
     func testHatCategoryAndOptionalOutfitCalendar() {
         let app = XCUIApplication()
         app.launchArguments = ["--preview-wardrobe"]
@@ -204,7 +247,7 @@ final class ClosetUITests: XCTestCase {
         XCTAssertTrue(shirt.isHittable)
         app.buttons["doneCalendarButton"].tap()
         app.buttons["wardrobeButton"].tap()
-        XCTAssertEqual(app.scrollViews["wardrobe_tops"].value as? String, "1 of 24")
+        XCTAssertEqual(app.scrollViews["wardrobe_tops"].value as? String, "1 of 25")
         XCTAssertEqual(app.buttons["wearTodayButton"].label, "Update today")
     }
 
@@ -282,7 +325,7 @@ final class ClosetUITests: XCTestCase {
         let bottoms = app.scrollViews["wardrobe_bottoms"]
         XCTAssertTrue(tops.waitForExistence(timeout: 5))
         XCTAssertTrue(bottoms.exists)
-        XCTAssertEqual(tops.value as? String, "2 of 24")
+        XCTAssertEqual(tops.value as? String, "2 of 25")
         XCTAssertEqual(bottoms.value as? String, "2 of 8")
         XCTAssertFalse(app.staticTexts["Green striped polo"].exists)
         XCTAssertFalse(app.scrollViews["rail_tops"].isHittable)
@@ -293,7 +336,7 @@ final class ClosetUITests: XCTestCase {
         add(initial)
 
         tops.swipeLeft(velocity: .slow)
-        XCTAssertNotEqual(tops.value as? String, "2 of 24")
+        XCTAssertNotEqual(tops.value as? String, "2 of 25")
         XCTAssertEqual(bottoms.value as? String, "2 of 8")
         let topSelection = tops.value as? String
         bottoms.swipeLeft(velocity: .slow)
@@ -411,7 +454,7 @@ final class ClosetUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Codex tee"].waitForExistence(timeout: 10))
         let columnX = app.buttons["Codex tee"].frame.minX
 
-        for (category, lastName) in [("tops", "Guinness sweatshirt"), ("bottoms", "Brown baggy trousers")] {
+        for (category, lastName) in [("tops", "Stüssy cream waffle long sleeve"), ("bottoms", "Brown baggy trousers")] {
             let rail = app.scrollViews["rail_\(category)"]
             let addButton = rail.buttons["Add to \(category)"]
             for _ in 0..<14 {
@@ -431,7 +474,7 @@ final class ClosetUITests: XCTestCase {
         screenshot.name = "Last top and bottom aligned"
         screenshot.lifetime = .keepAlways
         add(screenshot)
-        app.buttons["Guinness sweatshirt"].tap()
+        app.buttons["Stüssy cream waffle long sleeve"].tap()
         XCTAssertTrue(app.navigationBars["Your piece"].waitForExistence(timeout: 5))
     }
 

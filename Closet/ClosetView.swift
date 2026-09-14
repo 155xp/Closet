@@ -296,10 +296,11 @@ struct HangingPiece: View {
         .frame(width: width, height: width * (item.category == .tops ? 1.25 : 1.65) + 34, alignment: .top)
         .overlay(alignment: .bottom) {
             if item.needsWashing {
-                Label("Needs washing", systemImage: "basket")
-                    .font(.system(size: 10, weight: .medium))
-                    .padding(.horizontal, 8).padding(.vertical, 5)
-                    .background(.regularMaterial, in: Capsule())
+                Image(systemName: "washer")
+                    .font(.system(size: 13, weight: .medium))
+                    .frame(width: 28, height: 28)
+                    .background(.regularMaterial, in: Circle())
+                    .accessibilityIdentifier("washIndicator_\(item.id)")
                     .accessibilityHidden(true)
             }
         }

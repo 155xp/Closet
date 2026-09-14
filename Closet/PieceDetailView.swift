@@ -43,10 +43,10 @@ struct PieceDetailView: View {
                 .padding(.horizontal, 24)
                 if item.category.canBeWashed {
                     VStack(spacing: 14) {
-                        Label(item.needsWashing ? "Needs washing" : "Clean",
-                              systemImage: item.needsWashing ? "basket" : "checkmark.circle")
+                        Image(systemName: item.needsWashing ? "washer" : "checkmark.circle")
                             .font(.subheadline.weight(.medium))
                             .foregroundStyle(item.needsWashing ? Color.orange : Color.secondary)
+                            .accessibilityLabel(item.needsWashing ? "Needs washing" : "Clean")
                             .accessibilityIdentifier("washStatus")
                         Button {
                             if item.needsWashing { item.markWashed() }
@@ -55,7 +55,7 @@ struct PieceDetailView: View {
                             catch { context.rollback(); errorMessage = "Couldn't update the wash status. Please try again." }
                         } label: {
                             Label(item.needsWashing ? "Mark washed" : "Put in laundry",
-                                  systemImage: item.needsWashing ? "checkmark" : "basket")
+                                  systemImage: item.needsWashing ? "checkmark" : "washer")
                                 .padding(.horizontal, 14).padding(.vertical, 6)
                         }
                         .buttonStyle(.glass)

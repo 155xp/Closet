@@ -18,6 +18,7 @@
 		447C7C6ACE85EB8E00D17CF8 /* PhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E1EC0F0AB35FDC046E7E7E /* PhotoViewer.swift */; };
 		45930C854C373F7AE2930755 /* OutfitCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8BCDBF0BA877568E061246 /* OutfitCalendarView.swift */; };
 		474A45610E9121681DA0F0D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */; };
+		4F067A49BD12734D2B75F763 /* stussy-cream-waffle-long-sleeve.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B7D9BF2A13D68D5436A4D2 /* stussy-cream-waffle-long-sleeve.png */; };
 		53D5EB3F04F1E38685F0FAE8 /* brown-baggy-trousers.png in Resources */ = {isa = PBXBuildFile; fileRef = DA53FFE0ADE4D9072F35972F /* brown-baggy-trousers.png */; };
 		58C56C32FB3422862C5B37AE /* bucees-yellow-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = 7864FCA0B2D64A2C9A5D11F3 /* bucees-yellow-tee.png */; };
 		5A8D9C80EE575EFED03A4FF3 /* washed-blue-wide-jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = EDD8F0B13B5123F9C0B287EC /* washed-blue-wide-jeans.png */; };
@@ -117,6 +118,7 @@
 		9FF3089770658F0C085137AF /* ClosetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetApp.swift; sourceTree = "<group>"; };
 		A3197BAE9CBC00B7BF05133A /* ClosetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetUITests.swift; sourceTree = "<group>"; };
 		A3AD79ED52494DA310394BB1 /* virginia-tech-gray-sweatshirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "virginia-tech-gray-sweatshirt.png"; sourceTree = "<group>"; };
+		A7B7D9BF2A13D68D5436A4D2 /* stussy-cream-waffle-long-sleeve.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stussy-cream-waffle-long-sleeve.png"; sourceTree = "<group>"; };
 		B55B9EE5871DB1313EEDC15B /* washed-charcoal-hoodie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-charcoal-hoodie.png"; sourceTree = "<group>"; };
 		B68A59085B42B899CF4CD631 /* LaundryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaundryView.swift; sourceTree = "<group>"; };
 		BBF16E8CD22DC021A066AE3A /* PieceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceDetailView.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				6A7527938317FB3A733872C8 /* navy-hollister-sweatpants.png */,
 				286ACA696FEB791C519063D2 /* red-bull-cream-tee.png */,
 				DAB7C3529182AE7801A0890E /* slate-blue-sweatshirt.png */,
+				A7B7D9BF2A13D68D5436A4D2 /* stussy-cream-waffle-long-sleeve.png */,
 				9E1BC6D4EB424683ADD1C6C1 /* stussy-hong-kong-sweatshirt.png */,
 				DA08816EA715B3759A88F80F /* taupe-shearling-clogs.png */,
 				C8561B4F2D1756A58D6A11DB /* vineyard-vines-boat-tee.png */,
@@ -381,6 +384,7 @@
 				97506AECC83DD20F3BB0D743 /* navy-hollister-sweatpants.png in Resources */,
 				5E61018BA0A434ADAACB7935 /* red-bull-cream-tee.png in Resources */,
 				2BF2578694A7C9939774FEC0 /* slate-blue-sweatshirt.png in Resources */,
+				4F067A49BD12734D2B75F763 /* stussy-cream-waffle-long-sleeve.png in Resources */,
 				B887FDDCF142DB7BBF434E08 /* stussy-hong-kong-sweatshirt.png in Resources */,
 				BF9A654BFAB3E0FD5E6DD5BF /* taupe-shearling-clogs.png in Resources */,
 				BEE5DF30E8B16D0448D7E699 /* vineyard-vines-boat-tee.png in Resources */,
@@ -458,7 +462,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLight AppIconDark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = closet;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -470,7 +474,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -517,7 +521,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLight AppIconDark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = closet;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -529,7 +533,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

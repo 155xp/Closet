@@ -4,6 +4,7 @@ import SwiftData
 struct WardrobeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Query(sort: \ClothingItem.addedAt, order: .reverse) private var items: [ClothingItem]
     @Query(sort: \DailyOutfit.day, order: .reverse) private var outfits: [DailyOutfit]
     @State private var topID: UUID?
@@ -34,56 +35,24 @@ struct WardrobeView: View {
     var body: some View {
         NavigationStack {
             TimelineView(.periodic(from: .now, by: 60)) { timeline in
-                GeometryReader { geometry in
-                    let outfitHeight = max(180, min(geometry.size.height - 80, geometry.size.width * 1.62))
-                    VStack(spacing: 4) {
-                        WardrobeCarousel(category: .hat, items: items.filter { $0.category == .hat },
-                                         selection: $hatID, allowsNoSelection: true) {
-                            addingCategory = .hat
+                if horizontalSizeClass == .regular {
+                    // iPhone Duo inner display: the outfit on one side of the fold, today's choice on the other,
+                    // so no garment is centered on the crease.
+                    FoldAwareSplit {
+                        outfitStack(now: timeline.date, showsWearLabels: false)
+                            .padding(.vertical, 12)
+                    } secondary: {
+                        OutfitSummary(pieces: summaryPieces, outfits: outfits, now: timeline.date) {
+                            wearButton(now: timeline.date)
                         }
-                        .frame(height: outfitHeight * 0.14)
-
-                        Text(wearLabel(for: topID, now: timeline.date))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .accessibilityIdentifier("wearHistory_tops")
-                            .padding(.bottom, 6)
-                        WardrobeCarousel(category: .tops, items: items.filter { $0.category == .tops }, selection: $topID) {
-                            addingCategory = .tops
-                        }
-                        .frame(height: outfitHeight * 0.29)
-
-                        WardrobeCarousel(category: .bottoms, items: items.filter { $0.category == .bottoms }, selection: $bottomID) {
-                            addingCategory = .bottoms
-                        }
-                        .frame(height: outfitHeight * 0.40)
-
-                        Text(wearLabel(for: bottomID, now: timeline.date))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .accessibilityIdentifier("wearHistory_bottoms")
-
-                        WardrobeCarousel(category: .shoes, items: items.filter { $0.category == .shoes }, selection: $shoesID) {
-                            addingCategory = .shoes
-                        }
-                        .frame(height: outfitHeight * 0.17)
                     }
-                    .frame(maxHeight: .infinity)
-                }
-                .safeAreaInset(edge: .bottom) {
-                    Button(DailyOutfit.on(timeline.date, in: outfits) == nil ? "Wear this today" : "Update today") {
-                        do { try DailyOutfit.save(items: selectedItems, in: context) }
-                        catch { saveFailed = true }
-                    }
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
-                    .buttonStyle(.glass)
-                    .foregroundStyle(.primary)
-                    .disabled(selectedItems.isEmpty)
-                    .accessibilityIdentifier("wearTodayButton")
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 12)
+                } else {
+                    outfitStack(now: timeline.date, showsWearLabels: true)
+                        .safeAreaInset(edge: .bottom) {
+                            wearButton(now: timeline.date)
+                                .padding(.horizontal, 24)
+                                .padding(.bottom, 12)
+                        }
                 }
             }
             .onChange(of: items.map(\.id), initial: true) { _, _ in
@@ -114,6 +83,120 @@ struct WardrobeView: View {
                 AddPieceView(initialCategory: category)
             }
         }
+    }
+
+    /// Selected pieces from head to toe, for the split layout's summary.
+    private var summaryPieces: [ClothingItem] {
+        [hatID, topID, bottomID, shoesID].compactMap { id in items.first { $0.id == id } }
+    }
+
+    private func outfitStack(now: Date, showsWearLabels: Bool) -> some View {
+        GeometryReader { geometry in
+            let outfitHeight = max(180, min(geometry.size.height - 80, geometry.size.width * 1.62))
+            VStack(spacing: 4) {
+                WardrobeCarousel(category: .hat, items: items.filter { $0.category == .hat },
+                                 selection: $hatID, allowsNoSelection: true) {
+                    addingCategory = .hat
+                }
+                .frame(height: outfitHeight * 0.14)
+
+                if showsWearLabels {
+                    Text(wearLabel(for: topID, now: now))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .accessibilityIdentifier("wearHistory_tops")
+                        .padding(.bottom, 6)
+                }
+                WardrobeCarousel(category: .tops, items: items.filter { $0.category == .tops }, selection: $topID) {
+                    addingCategory = .tops
+                }
+                .frame(height: outfitHeight * 0.29)
+
+                WardrobeCarousel(category: .bottoms, items: items.filter { $0.category == .bottoms }, selection: $bottomID) {
+                    addingCategory = .bottoms
+                }
+                .frame(height: outfitHeight * 0.40)
+
+                if showsWearLabels {
+                    Text(wearLabel(for: bottomID, now: now))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .accessibilityIdentifier("wearHistory_bottoms")
+                }
+
+                WardrobeCarousel(category: .shoes, items: items.filter { $0.category == .shoes }, selection: $shoesID) {
+                    addingCategory = .shoes
+                }
+                .frame(height: outfitHeight * 0.17)
+            }
+            .frame(maxHeight: .infinity)
+        }
+    }
+
+    private func wearButton(now: Date) -> some View {
+        Button(DailyOutfit.on(now, in: outfits) == nil ? "Wear this today" : "Update today") {
+            do { try DailyOutfit.save(items: selectedItems, in: context) }
+            catch { saveFailed = true }
+        }
+        .font(.headline)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 8)
+        .buttonStyle(.glass)
+        .foregroundStyle(.primary)
+        .disabled(selectedItems.isEmpty)
+        .accessibilityIdentifier("wearTodayButton")
+    }
+}
+
+/// The split layout's second pane: what you've picked, when you last wore it, and the one action.
+private struct OutfitSummary<Action: View>: View {
+    let pieces: [ClothingItem]
+    let outfits: [DailyOutfit]
+    let now: Date
+    @ViewBuilder var action: Action
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Today's outfit")
+                .font(.title3.weight(.semibold))
+                .padding(.bottom, 4)
+            Text(pieces.isEmpty ? "Swipe each row to pick a piece." : "Swipe each row to change a piece.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.bottom, 20)
+
+            VStack(alignment: .leading, spacing: 14) {
+                ForEach(pieces) { piece in
+                    HStack(spacing: 14) {
+                        Group {
+                            if let image = UIImage(data: piece.photo) {
+                                Image(uiImage: image).resizable().scaledToFit()
+                            }
+                        }
+                        .frame(width: 44, height: 52)
+                        .accessibilityHidden(true)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(piece.name)
+                                .font(.body)
+                                .lineLimit(1)
+                            Text(DailyOutfit.wearLabel(for: piece.id, in: outfits, now: now))
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .accessibilityIdentifier("wearHistory_\(piece.category.rawValue)")
+                        }
+                    }
+                    .accessibilityElement(children: .combine)
+                }
+            }
+
+            Spacer(minLength: 24)
+            action
+        }
+        .padding(ClosetMetrics.gutter)
+        .modifier(ClosetCard())
+        .padding(16)
+        .frame(maxWidth: 480, maxHeight: .infinity)
+        .frame(maxWidth: .infinity)
     }
 }
 

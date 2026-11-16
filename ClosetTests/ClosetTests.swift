@@ -358,3 +358,100 @@ final class ClosetTests: XCTestCase {
         }
     }
 }
+
+/// Layout math for iPhone Duo poses. These run on any simulator, so they cover the fold logic
+/// even on Xcode versions without an iPhone Duo simulator.
+final class AdaptiveLayoutTests: XCTestCase {
+    func testGridKeepsTwoColumnsOnAPhoneAndAddsColumnsAsItWidens() {
+        XCTAssertEqual(ClosetMetrics.gridColumnCount(width: 0), 2)
+        XCTAssertEqual(ClosetMetrics.gridColumnCount(width: 402), 2)
+        XCTAssertEqual(ClosetMetrics.gridColumnCount(width: 440), 2)
+        XCTAssertEqual(ClosetMetrics.gridColumnCount(width: 600), 3)
+        XCTAssertEqual(ClosetMetrics.gridColumnCount(width: 900), 5)
+        XCTAssertEqual(ClosetMetrics.gridColumnCount(width: 2000), ClosetMetrics.maximumGridColumns)
+    }
+
+    func testRailAndDetailSizesMatchThePhoneAndShrinkInNarrowPanes() {
+        XCTAssertEqual(ClosetMetrics.railSlotWidth(width: 402), 402 * 0.405, accuracy: 0.001)
+        XCTAssertEqual(ClosetMetrics.railSlotWidth(width: 300), 140)
+        XCTAssertEqual(ClosetMetrics.railSlotWidth(width: 600), 190)
+        XCTAssertEqual(ClosetMetrics.detailPhotoWidth(available: 0), 280)
+        XCTAssertEqual(ClosetMetrics.detailPhotoWidth(available: 402), 280)
+        XCTAssertEqual(ClosetMetrics.detailPhotoWidth(available: 250), 202)
+        XCTAssertEqual(ClosetMetrics.detailPhotoWidth(available: 100), 160)
+    }
+
+    func testFlatSplitWithoutAHingeDividesDownTheMiddle() {
+        let split = SplitGeometry.resolve(size: CGSize(width: 820, height: 980), divisions: [])
+        XCTAssertEqual(split.axis, .sideBySide)
+        XCTAssertFalse(split.isFolded)
+        XCTAssertEqual(split.primary.width, 410)
+        XCTAssertEqual(split.gap.width, 1)
+        XCTAssertEqual(split.secondary.minX, 411)
+        XCTAssertEqual(split.primary.width + split.gap.width + split.secondary.width, 820)
+    }
+
+    func testFlatSplitSitsOnTheInactiveHingeSoFoldingDoesNotMoveIt() {
+        let hinge = CGRect(x: 400, y: 0, width: 0, height: 980)
+        let flat = SplitGeometry.resolve(size: CGSize(width: 820, height: 980), divisions: [hinge])
+        XCTAssertFalse(flat.isFolded)
+        XCTAssertEqual(flat.primary.width, 400)
+
+        let fold = CGRect(x: 392, y: 0, width: 16, height: 980)
+        let folded = SplitGeometry.resolve(size: CGSize(width: 820, height: 980), divisions: [fold])
+        XCTAssertTrue(folded.isFolded)
+        XCTAssertEqual(folded.axis, .sideBySide)
+        XCTAssertEqual(folded.primary, CGRect(x: 0, y: 0, width: 392, height: 980))
+        XCTAssertEqual(folded.gap, fold)
+        XCTAssertEqual(folded.secondary, CGRect(x: 408, y: 0, width: 412, height: 980))
+    }
+
+    func testCrossFoldStacksThePanes() {
+        let fold = CGRect(x: 0, y: 402, width: 980, height: 16)
+        let split = SplitGeometry.resolve(size: CGSize(width: 980, height: 820), divisions: [fold])
+        XCTAssertTrue(split.isFolded)
+        XCTAssertEqual(split.axis, .stacked)
+        XCTAssertEqual(split.primary.height, 402)
+        XCTAssertEqual(split.secondary.minY, 418)
+        XCTAssertEqual(split.secondary.height, 402)
+    }
+
+    func testFoldsThatWouldLeaveAnUnusablePaneOrSitOutsideAreIgnored() {
+        let size = CGSize(width: 820, height: 980)
+        let nearEdge = SplitGeometry.resolve(size: size, divisions: [CGRect(x: 100, y: 0, width: 16, height: 980)])
+        XCTAssertFalse(nearEdge.isFolded)
+        XCTAssertEqual(nearEdge.primary.width, SplitGeometry.minimumPane)
+
+        let outside = SplitGeometry.resolve(size: size, divisions: [CGRect(x: 2000, y: 0, width: 16, height: 980)])
+        XCTAssertEqual(outside.primary.width, 410)
+    }
+
+    func testPanesStayClearOfAnActiveCameraOcclusion() {
+        let pane = CGRect(x: 0, y: 0, width: 400, height: 900)
+        let camera = CGRect(x: 150, y: 0, width: 100, height: 40)
+        XCTAssertEqual(SplitGeometry.insets(for: pane, avoiding: [camera]).top, 40)
+        XCTAssertEqual(SplitGeometry.insets(for: pane, avoiding: [CGRect(x: 500, y: 0, width: 100, height: 40)]),
+                       EdgeInsets())
+    }
+
+    @MainActor
+    func testOpeningAndClosingThePhoneKeepsTheOpenPiece() {
+        let tee = ClothingItem(name: "Tee", category: .tops, photo: Data())
+        let router = ClosetRouter()
+        router.path = [.category(.tops), .piece(tee)]
+
+        router.moveToSplit()
+        XCTAssertEqual(router.browsePath, [.category(.tops)])
+        XCTAssertEqual(router.selectedID, tee.id)
+        XCTAssertTrue(router.path.isEmpty)
+
+        router.moveToStack(items: [tee])
+        XCTAssertEqual(router.path, [.category(.tops), .piece(tee)])
+        XCTAssertNil(router.selectedID)
+        XCTAssertTrue(router.browsePath.isEmpty)
+
+        router.moveToSplit()
+        router.moveToStack(items: [])
+        XCTAssertEqual(router.path, [.category(.tops)], "A piece removed while open isn't pushed back")
+    }
+}

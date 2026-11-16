@@ -22,13 +22,11 @@ Use case: precise-object-edit. Change ONLY the gray-white checkerboard surroundi
 
 Built-in imagegen. Input normalized from iPhone MPO JPEG to PNG. First output baked checkerboard; second generated flat magenta; local Python chroma-key derived alpha using nearest solid foreground colors and removed detached residual islands. Final PNG alpha verified (0,255), inspected on cream and charcoal backgrounds. Original photo unchanged.
 
-
 ## Sneaker prompts
 
 Asset: Closet/Resources/Garments/black-on-sneakers.png
-Original: /Users/eric/Downloads/IMG_3491.JPG (unchanged)
+Original: `IMG_3491.JPG` (unchanged)
 Mode: built-in image_gen editing, two passes. Source was MPO inside JPG filename, normalized to PNG for tool input.
 Prompt 1: Use case: background-extraction. Asset type: transparent photo cutout for a wardrobe outfit preview app. Edit target: supplied photograph of a pair of black On sneakers. Remove carpet, furniture, socks, room and background, retaining exact pair. Request genuine alpha. Center top-down pair, toes down, heels up, parallel and evenly aligned with narrow gap. Preserve black colors, fabric texture, lace pattern, soles, proportions and existing branding. Lightly tidy dust and improve even natural lighting. Complete shoes with 3 percent padding. No floor, shadow, hanger, labels, added text, border or props. If alpha impossible use flat magenta #FF00FF, never checkerboard.
 Prompt 2: Use case: background-extraction. Edit ONLY background. Preserve both black On sneakers exactly: shape, alignment, texture, laces, logos, soles, toe direction down, proportions and lighting. Replace gray/white checkerboard around and between shoes with uniform solid vivid MAGENTA #FF00FF. No checkerboard, pink lighting, shadows, floor, texture or gradient. Literal chroma key backdrop for programmatic removal; full pair uncropped.
-Generated source: /Users/eric/.codex/generated_images/01a097b7-6147-7d21-a7d9-ad8dbbb2cc46/exec-6420e2ad-d427-48f0-8084-1fb723861ebe.png
 Postprocessing: removed magenta with alpha chroma key and color decontamination, tight crop plus 3 percent transparent padding, 1600px maximum edge. Genuine RGBA confirmed, visually inspected on neutral background.

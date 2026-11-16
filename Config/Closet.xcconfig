@@ -1,0 +1,16 @@
+// Project-wide settings shared by every target.
+
+// Signing. Leave these empty in the repo. To run on your own iPhone, create
+// Config/Local.xcconfig (git-ignored) with your own values, for example:
+//   DEVELOPMENT_TEAM = ABCDE12345
+//   CLOSET_BUNDLE_PREFIX = com.yourname
+DEVELOPMENT_TEAM =
+CLOSET_BUNDLE_PREFIX = com.example
+
+// iPhone Duo APIs (reserved regions, hinge changes) only exist in the iOS 27 SDKs.
+// This flag turns that code on when building with Xcode 27.1 or later; older Xcode
+// versions skip it and still build. Runtime checks use #available(iOS 27.1, *).
+OTHER_SWIFT_FLAGS[sdk=iphoneos27*] = $(inherited) -DCLOSET_DUO_SDK
+OTHER_SWIFT_FLAGS[sdk=iphonesimulator27*] = $(inherited) -DCLOSET_DUO_SDK
+
+#include? "Local.xcconfig"

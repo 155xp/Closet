@@ -1,106 +1,40 @@
 import SwiftUI
 import SwiftData
 
+/// The app's root. Compact width (an iPhone, or the iPhone Duo's outer display) gets the phone
+/// layout; regular width (the Duo's inner display) gets the closet beside the piece, split at the fold.
 struct ClosetView: View {
     @Environment(\.modelContext) private var context
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Query(sort: \ClothingItem.addedAt, order: .reverse) private var items: [ClothingItem]
-    @State private var showingSettings = false
-    @State private var showingLaundry = false
-    @State private var showingWardrobe = false
-    @State private var showingCalendar = false
-    @State private var addingCategory: ClothingCategory?
+    @State private var router = ClosetRouter()
     @State private var importFailed = false
 
-    private var laundryCount: Int {
-        items.filter { $0.category.canBeWashed && $0.needsWashing }.count
-    }
+    private var usesSplit: Bool { horizontalSizeClass == .regular }
 
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical) {
-                VStack(alignment: .leading, spacing: 0) {
-                    ForEach(ClothingCategory.allCases) { category in
-                        if category == .shoes || category == .hat {
-                            ShoesSection(category: category, items: items.filter { $0.category == category }) {
-                                addingCategory = category
-                            }
-                        } else {
-                            RackSection(category: category, items: items.filter { $0.category == category }) {
-                                addingCategory = category
-                            }
-                        }
-                    }
+        Group {
+            if usesSplit {
+                ClosetSplitView()
+            } else {
+                NavigationStack(path: $router.path) {
+                    ClosetHome()
                 }
-                .padding(.bottom, 24)
-            }
-            .background(ClosetStyle.background)
-            .navigationTitle("closet")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Settings", systemImage: "gearshape") { showingSettings = true }
-                        .tint(.primary)
-                        .accessibilityIdentifier("settingsButton")
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add a piece", systemImage: "plus") { addingCategory = .tops }
-                        .tint(.blue)
-                        .accessibilityIdentifier("addPieceButton")
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Wardrobe", systemImage: "tshirt") {
-                        showingWardrobe = true
-                    }
-                    .labelStyle(.titleAndIcon)
-                    .tint(.primary)
-                    .accessibilityIdentifier("wardrobeButton")
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Calendar", systemImage: "calendar") { showingCalendar = true }
-                        .labelStyle(.titleAndIcon)
-                        .tint(.primary)
-                        .accessibilityIdentifier("calendarButton")
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button {
-                        showingLaundry = true
-                    } label: {
-                        Image(systemName: "basket")
-                            .overlay(alignment: .topTrailing) {
-                                if laundryCount > 0 {
-                                    Text("\(laundryCount)")
-                                        .font(.system(size: 11, weight: .bold, design: .rounded))
-                                        .monospacedDigit()
-                                        .foregroundStyle(.white)
-                                        .lineLimit(1)
-                                        .minimumScaleFactor(0.6)
-                                        .frame(width: 20, height: 20)
-                                        .background(.red, in: Circle())
-                                        .offset(x: 10, y: -8)
-                                        .accessibilityHidden(true)
-                                }
-                            }
-                            .padding(.trailing, 5)
-                            .padding(.top, 3)
-                    }
-                    .tint(.primary)
-                    .accessibilityLabel(laundryCount == 0 ? "Laundry" : "Laundry · \(laundryCount)")
-                    .accessibilityValue("\(laundryCount) \(laundryCount == 1 ? "item" : "items") to wash")
-                    .accessibilityIdentifier("laundryButton")
-                }
-            }
-            .sheet(isPresented: $showingSettings) { SettingsView() }
-            .sheet(isPresented: $showingLaundry) { LaundryView() }
-            .sheet(isPresented: $showingCalendar) { OutfitCalendarView() }
-            .fullScreenCover(isPresented: $showingWardrobe) { WardrobeView() }
-            .sheet(item: $addingCategory) { category in AddPieceView(initialCategory: category) }
-            .navigationDestination(for: ClothingCategory.self) { category in
-                CategoryView(category: category)
-            }
-            .navigationDestination(for: ClothingItem.self) { item in
-                PieceDetailView(item: item)
             }
         }
+        .environment(router)
+        .environment(\.hingePulse, router.hingePulse)
+        .modifier(HingePulseReader(pulse: $router.hingePulse))
+        .onChange(of: usesSplit) { _, split in
+            // Opening or closing the phone keeps your place.
+            if split { router.moveToSplit() } else { router.moveToStack(items: items) }
+        }
+        // Presented from the root so they stay open when the layout changes.
+        .sheet(isPresented: $router.showingSettings) { SettingsView() }
+        .sheet(isPresented: $router.showingLaundry) { LaundryView() }
+        .sheet(isPresented: $router.showingCalendar) { OutfitCalendarView() }
+        .fullScreenCover(isPresented: $router.showingWardrobe) { WardrobeView() }
+        .sheet(item: $router.addingCategory) { category in AddPieceView(initialCategory: category) }
         .task {
             guard !ProcessInfo.processInfo.arguments.contains("--empty-closet"),
                   ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1" else { return }
@@ -119,6 +53,97 @@ struct ClosetView: View {
     }
 }
 
+/// The rails screen. It's the root of the phone stack and of the split layout's browsing pane.
+struct ClosetHome: View {
+    @Environment(ClosetRouter.self) private var router
+    @Query(sort: \ClothingItem.addedAt, order: .reverse) private var items: [ClothingItem]
+
+    private var laundryCount: Int {
+        items.filter { $0.category.canBeWashed && $0.needsWashing }.count
+    }
+
+    var body: some View {
+        ScrollView(.vertical) {
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(ClothingCategory.allCases) { category in
+                    if category == .shoes || category == .hat {
+                        ShoesSection(category: category, items: items.filter { $0.category == category }) {
+                            router.addingCategory = category
+                        }
+                    } else {
+                        RackSection(category: category, items: items.filter { $0.category == category }) {
+                            router.addingCategory = category
+                        }
+                    }
+                }
+            }
+            .padding(.bottom, 24)
+        }
+        .background(ClosetStyle.background)
+        .navigationTitle("closet")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Settings", systemImage: "gearshape") { router.showingSettings = true }
+                    .tint(.primary)
+                    .accessibilityIdentifier("settingsButton")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Add a piece", systemImage: "plus") { router.addingCategory = .tops }
+                    .tint(.blue)
+                    .accessibilityIdentifier("addPieceButton")
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button("Wardrobe", systemImage: "tshirt") {
+                    router.showingWardrobe = true
+                }
+                .labelStyle(.titleAndIcon)
+                .tint(.primary)
+                .accessibilityIdentifier("wardrobeButton")
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button("Calendar", systemImage: "calendar") { router.showingCalendar = true }
+                    .labelStyle(.titleAndIcon)
+                    .tint(.primary)
+                    .accessibilityIdentifier("calendarButton")
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button {
+                    router.showingLaundry = true
+                } label: {
+                    Image(systemName: "basket")
+                        .overlay(alignment: .topTrailing) {
+                            if laundryCount > 0 {
+                                Text("\(laundryCount)")
+                                    .font(.system(size: 11, weight: .bold, design: .rounded))
+                                    .monospacedDigit()
+                                    .foregroundStyle(.white)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.6)
+                                    .frame(width: 20, height: 20)
+                                    .background(.red, in: Circle())
+                                    .offset(x: 10, y: -8)
+                                    .accessibilityHidden(true)
+                            }
+                        }
+                        .padding(.trailing, 5)
+                        .padding(.top, 3)
+                }
+                .tint(.primary)
+                .accessibilityLabel(laundryCount == 0 ? "Laundry" : "Laundry · \(laundryCount)")
+                .accessibilityValue("\(laundryCount) \(laundryCount == 1 ? "item" : "items") to wash")
+                .accessibilityIdentifier("laundryButton")
+            }
+        }
+        .navigationDestination(for: ClosetRoute.self) { route in
+            switch route {
+            case .category(let category): CategoryView(category: category)
+            case .piece(let item): PieceDetailView(item: item)
+            }
+        }
+    }
+}
+
 struct RackSection: View {
     let category: ClothingCategory
     let items: [ClothingItem]
@@ -128,11 +153,12 @@ struct RackSection: View {
     @State private var swayAngle = 0.0
     @State private var scrollPhase = ScrollPhase.idle
     @State private var lastMotionSample = 0.0
+    @Environment(\.hingePulse) private var hingePulse
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if showsHeading {
-                NavigationLink(value: category) {
+                NavigationLink(value: ClosetRoute.category(category)) {
                     HStack(spacing: 10) {
                         Text(category.title)
                             .font(.title2.weight(.semibold))
@@ -149,7 +175,7 @@ struct RackSection: View {
             }
 
             GeometryReader { geometry in
-                let slotWidth = min(190.0, max(140.0, geometry.size.width * 0.405))
+                let slotWidth = ClosetMetrics.railSlotWidth(width: geometry.size.width)
                 let slotSpacing = -8.0
                 let leadingMargin = 12.0
                 // Leave the last garment in the first column, with the add hanger beside it.
@@ -169,7 +195,7 @@ struct RackSection: View {
                                 }
                             } else {
                                 ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
-                                    NavigationLink(value: item) {
+                                    PieceLink(item: item) {
                                         HangingPiece(item: item, width: slotWidth)
                                     }
                                     .buttonStyle(.plain)
@@ -237,6 +263,15 @@ struct RackSection: View {
             }
             .frame(height: items.isEmpty ? 265 : (category == .tops ? 245 : 305))
             .padding(.top, 48)
+        }
+        .onChange(of: hingePulse) { _, pulse in
+            // Folding or unfolding the phone gives the clothes a small swing, like moving a real rail.
+            guard !reduceMotion, scrollPhase == .idle else { return }
+            swayAngle = HangerSway.maximumAngle * 0.5 * (pulse.isMultiple(of: 2) ? 1 : -1)
+            Task { @MainActor in
+                try? await Task.sleep(for: .milliseconds(160))
+                if scrollPhase == .idle { swayAngle = 0 }
+            }
         }
     }
 }
@@ -310,7 +345,8 @@ struct HangingPiece: View {
 struct CategoryView: View {
     let category: ClothingCategory
     @Query(sort: \ClothingItem.addedAt, order: .reverse) private var allItems: [ClothingItem]
-    @State private var showingAdd = false
+    @Environment(ClosetRouter.self) private var router
+    @State private var width: CGFloat = 0
 
     private var items: [ClothingItem] { allItems.filter { $0.category == category } }
 
@@ -323,35 +359,37 @@ struct CategoryView: View {
                     } description: {
                         Text("Add your first \(category.singular) to start this collection.")
                     } actions: {
-                        Button("Add \(category.rawValue)", systemImage: "plus") { showingAdd = true }
+                        Button("Add \(category.rawValue)", systemImage: "plus") { router.addingCategory = category }
                             .buttonStyle(.glass)
                             .accessibilityIdentifier("emptyAdd_\(category.rawValue)")
                     }
                     .padding(.top, 50)
                 } else {
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)],
-                              alignment: .leading, spacing: 24) {
+                    // Two columns on a phone; more on a wide pane or the iPhone Duo's inner display.
+                    let columns = Array(repeating: GridItem(.flexible(), spacing: ClosetMetrics.gridSpacing),
+                                        count: ClosetMetrics.gridColumnCount(width: width))
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 24) {
                         ForEach(items) { item in
-                            NavigationLink(value: item) { ClothingGridCell(item: item) }
+                            PieceLink(item: item) { ClothingGridCell(item: item) }
                                 .buttonStyle(.plain)
                                 .accessibilityLabel(item.name)
                                 .accessibilityValue(item.category.canBeWashed ? (item.needsWashing ? "Needs washing" : "Clean") : "")
                         }
                     }
-                    .padding(20)
+                    .padding(ClosetMetrics.gutter)
                     .accessibilityIdentifier("categoryGrid")
                 }
             }
         }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
         .background(ClosetStyle.background)
         .navigationTitle(category.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Add to \(category.title)", systemImage: "plus") { showingAdd = true }
+                Button("Add to \(category.title)", systemImage: "plus") { router.addingCategory = category }
             }
         }
-        .sheet(isPresented: $showingAdd) { AddPieceView(initialCategory: category) }
     }
 }
 
@@ -373,4 +411,3 @@ private struct ClothingGridCell: View {
     }
 }
 
-#Preview { ClosetView().modelContainer(for: [ClothingItem.self, DailyOutfit.self, WornPiece.self], inMemory: true) }

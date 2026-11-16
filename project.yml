@@ -1,15 +1,17 @@
 name: Closet
 options:
-  bundleIdPrefix: com.eric
+  bundleIdPrefix: com.example
   deploymentTarget:
     iOS: "26.0"
   xcodeVersion: "26.0"
+configFiles:
+  Debug: Config/Closet.xcconfig
+  Release: Config/Closet.xcconfig
 settings:
   base:
     SWIFT_VERSION: "6.0"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
-    DEVELOPMENT_TEAM: "4535Q45QTY"
 targets:
   Closet:
     type: application
@@ -17,7 +19,7 @@ targets:
     sources: [Closet]
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.eric.Closet
+        PRODUCT_BUNDLE_IDENTIFIER: "$(CLOSET_BUNDLE_PREFIX).Closet"
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: closet
@@ -39,6 +41,7 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: "$(CLOSET_BUNDLE_PREFIX).ClosetTests"
   ClosetUITests:
     type: bundle.ui-testing
     platform: iOS
@@ -48,6 +51,7 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: "$(CLOSET_BUNDLE_PREFIX).ClosetUITests"
 schemes:
   Closet:
     build:

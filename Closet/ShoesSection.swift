@@ -7,7 +7,7 @@ struct ShoesSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            NavigationLink(value: category) {
+            NavigationLink(value: ClosetRoute.category(category)) {
                 HStack(spacing: 10) {
                     Text(category.title).font(.title2.weight(.semibold))
                     Image(systemName: "chevron.right")
@@ -31,7 +31,7 @@ struct ShoesSection: View {
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 12) {
                         ForEach(items) { item in
-                            NavigationLink(value: item) {
+                            PieceLink(item: item) {
                                 ShoePhoto(item: item)
                                     .frame(width: 160, height: 190)
                                     .contentShape(Rectangle())

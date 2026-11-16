@@ -5,3 +5,6 @@ DerivedData/
 *.xcuserstate
 xcuserdata/
 *.xcresult
+
+# Personal signing settings
+Config/Local.xcconfig

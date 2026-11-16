@@ -3,22 +3,31 @@ import SwiftData
 
 struct PieceDetailView: View {
     let item: ClothingItem
+    /// Set in the split layout, where the zoomable photo opens in the same pane instead of full screen.
+    var openPhoto: (() -> Void)? = nil
+    /// Set in the split layout, where there's no page to pop after deleting.
+    var onDeleted: (() -> Void)? = nil
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @State private var confirmingDelete = false
     @State private var errorMessage: String?
     @State private var showingPhoto = false
+    @State private var availableWidth: CGFloat = 0
+
+    private var photoWidth: CGFloat { ClosetMetrics.detailPhotoWidth(available: availableWidth) }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                Button { showingPhoto = true } label: {
+                Button {
+                    if let openPhoto { openPhoto() } else { showingPhoto = true }
+                } label: {
                     ZStack(alignment: .top) {
                         if item.category == .shoes || item.category == .hat {
-                            ShoePhoto(item: item).frame(width: 260, height: 300)
+                            ShoePhoto(item: item).frame(width: photoWidth * 0.93, height: photoWidth * 1.07)
                         } else {
                             ClothesRail().padding(.top, 7)
-                            HangingPiece(item: item, width: 280)
+                            HangingPiece(item: item, width: photoWidth)
                         }
                     }
                     .overlay(alignment: .bottomTrailing) {
@@ -70,6 +79,7 @@ struct PieceDetailView: View {
                 }
             }
         }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { availableWidth = $0 }
         .background(ClosetStyle.background)
         .navigationTitle("Your piece")
         .navigationBarTitleDisplayMode(.inline)
@@ -85,7 +95,10 @@ struct PieceDetailView: View {
         .confirmationDialog("Remove this piece from your closet?", isPresented: $confirmingDelete, titleVisibility: .visible) {
             Button("Delete piece", role: .destructive) {
                 context.delete(item)
-                do { try context.save(); dismiss() }
+                do {
+                    try context.save()
+                    if let onDeleted { onDeleted() } else { dismiss() }
+                }
                 catch { context.rollback(); errorMessage = "Couldn't delete this piece. Please try again." }
             }
         }

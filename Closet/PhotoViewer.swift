@@ -1,36 +1,50 @@
 import SwiftUI
 import UIKit
 
+/// Full-screen photo viewer, used on the phone layout.
 struct PhotoViewer: View {
     let photo: Data
     let name: String
     @Environment(\.dismiss) private var dismiss
-    @State private var zoomed = false
 
     var body: some View {
         NavigationStack {
-            ZoomablePhoto(photo: photo, zoomed: $zoomed)
-                .background(ClosetStyle.background)
-                .safeAreaInset(edge: .bottom) {
-                    Text("Pinch or double tap to zoom")
-                        .font(.footnote).foregroundStyle(.secondary)
-                        .padding(.bottom, 16)
-                }
-                .navigationTitle(name)
-                .navigationBarTitleDisplayMode(.inline)
+            PhotoZoomView(photo: photo, name: name)
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button(zoomed ? "Zoom out" : "Zoom in",
-                               systemImage: zoomed ? "minus.magnifyingglass" : "plus.magnifyingglass") {
-                            zoomed.toggle()
-                        }
-                        .accessibilityIdentifier("photoZoomToggle")
-                    }
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Done") { dismiss() }.accessibilityIdentifier("closePhotoButton")
                     }
                 }
         }
+    }
+}
+
+/// The zoomable photo. Full screen on the phone; pushed into the detail pane in the split layout.
+struct PhotoZoomView: View {
+    let photo: Data
+    let name: String
+    var zoomPlacement: ToolbarItemPlacement = .topBarLeading
+    @State private var zoomed = false
+
+    var body: some View {
+        ZoomablePhoto(photo: photo, zoomed: $zoomed)
+            .background(ClosetStyle.background)
+            .safeAreaInset(edge: .bottom) {
+                Text("Pinch or double tap to zoom")
+                    .font(.footnote).foregroundStyle(.secondary)
+                    .padding(.bottom, 16)
+            }
+            .navigationTitle(name)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: zoomPlacement) {
+                    Button(zoomed ? "Zoom out" : "Zoom in",
+                           systemImage: zoomed ? "minus.magnifyingglass" : "plus.magnifyingglass") {
+                        zoomed.toggle()
+                    }
+                    .accessibilityIdentifier("photoZoomToggle")
+                }
+            }
     }
 }
 

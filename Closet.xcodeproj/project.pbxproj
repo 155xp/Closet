@@ -61,6 +61,9 @@
 		EFC1C909533514810E25004A /* washed-charcoal-tee.png in Resources */ = {isa = PBXBuildFile; fileRef = D81E27B1AF1B629B8B49A76D /* washed-charcoal-tee.png */; };
 		F917DDCD9BAAA667856B8CE2 /* washed-gray-jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = 332CC14A120691F043FB2213 /* washed-gray-jeans.png */; };
 		FFB68265ADF7E5A9C42B5ED0 /* virginia-tech-gray-sweatshirt.png in Resources */ = {isa = PBXBuildFile; fileRef = A3AD79ED52494DA310394BB1 /* virginia-tech-gray-sweatshirt.png */; };
+		A1D0A7E0C1A5E7D0F0000002 /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D0A7E0C1A5E7D0F0000001 /* AdaptiveLayout.swift */; };
+		A1D0A7E0C1A5E7D0F0000004 /* ClosetNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D0A7E0C1A5E7D0F0000003 /* ClosetNavigation.swift */; };
+		A1D0A7E0C1A5E7D0F0000006 /* DuoPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D0A7E0C1A5E7D0F0000005 /* DuoPreviews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +141,10 @@
 		EDD8F0B13B5123F9C0B287EC /* washed-blue-wide-jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "washed-blue-wide-jeans.png"; sourceTree = "<group>"; };
 		F07EE46033F76307A779C114 /* ClosetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetTests.swift; sourceTree = "<group>"; };
 		F3F7A6AED306F5FE17F8AB19 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A1D0A7E0C1A5E7D0F0000001 /* AdaptiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayout.swift; sourceTree = "<group>"; };
+		A1D0A7E0C1A5E7D0F0000003 /* ClosetNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosetNavigation.swift; sourceTree = "<group>"; };
+		A1D0A7E0C1A5E7D0F0000005 /* DuoPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoPreviews.swift; sourceTree = "<group>"; };
+		A1D0A7E0C1A5E7D0F0000007 /* Closet.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Closet.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -153,12 +160,15 @@
 			isa = PBXGroup;
 			children = (
 				2B41EAC7E1870069EFB809F4 /* AddPieceView.swift */,
+				A1D0A7E0C1A5E7D0F0000001 /* AdaptiveLayout.swift */,
 				E6FEFD9A13449945C60D7189 /* Assets.xcassets */,
 				E2B9A700B4CC250CD452D3F4 /* CameraView.swift */,
 				9FF3089770658F0C085137AF /* ClosetApp.swift */,
+				A1D0A7E0C1A5E7D0F0000003 /* ClosetNavigation.swift */,
 				52167DAF01D21D246C0685FB /* ClosetView.swift */,
 				453D0C617A9FA8EC2A3D9A79 /* ClothingItem.swift */,
 				73039EC1E1B9EDC47BB8DA96 /* DailyOutfit.swift */,
+				A1D0A7E0C1A5E7D0F0000005 /* DuoPreviews.swift */,
 				85EAF8CBF5F31ADFD3CA8671 /* HangerView.swift */,
 				B68A59085B42B899CF4CD631 /* LaundryView.swift */,
 				0C8BCDBF0BA877568E061246 /* OutfitCalendarView.swift */,
@@ -179,6 +189,7 @@
 				742CC18055F52B05035200B2 /* Closet */,
 				B63342373BBA7E2AFBCFB3EB /* ClosetTests */,
 				05BC2DFEA44610A187ED12DB /* ClosetUITests */,
+				A1D0A7E0C1A5E7D0F0000008 /* Config */,
 				BE543F7CF944F6CDF57057D5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -252,6 +263,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A1D0A7E0C1A5E7D0F0000008 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A1D0A7E0C1A5E7D0F0000007 /* Closet.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -319,16 +338,13 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					2ED05ADE6128BC0D13E1745F = {
-						DevelopmentTeam = 4535Q45QTY;
 						ProvisioningStyle = Automatic;
 					};
 					369B4220B99D9C50CD758CAE = {
-						DevelopmentTeam = 4535Q45QTY;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2ED05ADE6128BC0D13E1745F;
 					};
 					B9A199850F236BDF2BBCB298 = {
-						DevelopmentTeam = 4535Q45QTY;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -423,6 +439,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C34A781EBA5BE2D2DF9FBBD /* AddPieceView.swift in Sources */,
+				A1D0A7E0C1A5E7D0F0000002 /* AdaptiveLayout.swift in Sources */,
+				A1D0A7E0C1A5E7D0F0000004 /* ClosetNavigation.swift in Sources */,
+				A1D0A7E0C1A5E7D0F0000006 /* DuoPreviews.swift in Sources */,
 				C9CB7536679A3920AB6DEE54 /* CameraView.swift in Sources */,
 				136190614308747CF6530CF1 /* ClosetApp.swift in Sources */,
 				2A11B40C54A9205D1B7F7120 /* ClosetView.swift in Sources */,
@@ -475,7 +494,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(CLOSET_BUNDLE_PREFIX).Closet";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -491,7 +510,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(CLOSET_BUNDLE_PREFIX).ClosetTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Closet.app/Closet";
@@ -508,7 +527,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(CLOSET_BUNDLE_PREFIX).ClosetUITests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Closet;
@@ -534,7 +553,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.Closet;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(CLOSET_BUNDLE_PREFIX).Closet";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -542,6 +561,7 @@
 		};
 		7DF3D45E8BF42DDCBF59B5E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1D0A7E0C1A5E7D0F0000007 /* Closet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -576,7 +596,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 4535Q45QTY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -608,6 +627,7 @@
 		};
 		8CFFBC877DCB64C66ABBCA1A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1D0A7E0C1A5E7D0F0000007 /* Closet.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -642,7 +662,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 4535Q45QTY;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -675,7 +694,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(CLOSET_BUNDLE_PREFIX).ClosetUITests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Closet;
@@ -692,7 +711,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.ClosetTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(CLOSET_BUNDLE_PREFIX).ClosetTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Closet.app/Closet";

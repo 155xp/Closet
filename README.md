@@ -1,8 +1,86 @@
 # closet
 
-A native SwiftUI iPhone app based on the supplied clothes-rail reference. Requires iOS 26 and Xcode 26 or later. No packages or backend.
+A wardrobe app for iPhone, written in SwiftUI. Your clothes hang on wooden hangers along horizontal rails. You can browse each category in a photo grid, zoom into any piece, track what needs washing, and plan the day's outfit. Everything stays on the phone: there's no account, no backend, and no third-party packages.
 
-Friends can use the same wardrobe on the web at [closet.enci.dev](https://closet.enci.dev). The site lives in `web/`: swipe the tops, bottoms, and shoes carousels, browse the rails, and send a look with a shareable link.
+## Features
+
+- **Rails and grids.** Tops and bottoms hang on rails that sway when you flick them. Shoes and hats sit in their own rows. Tap a heading to see that category as a grid.
+- **Photo zoom.** Pinch up to 6×, pan, double-tap, or use the toolbar zoom control (which also works with VoiceOver).
+- **Laundry.** Put a piece in the laundry after wearing it, then mark pieces washed one at a time or all at once, with Undo. The basket shows how many pieces need washing.
+- **Wardrobe.** Swipe the hat, top, bottom, and shoe rows independently to build an outfit, then tap **Wear this today**. The pieces you wear go into the laundry.
+- **Calendar.** A week of saved outfits. Swipe between weeks.
+- **Add a piece.** Take a photo or pick one from Photos. Transparent PNGs keep their transparency.
+- **Settings.** System, light, or dark appearance, plus Automatic, Light, and Dark app icons.
+- **iPhone Duo.** The layout adapts to every pose. See [iPhone Duo](#iphone-duo).
+
+The app comes with a starter wardrobe of sample garment photos in `Closet/Resources/Garments`. They're imported once on first launch. Delete any of them and they stay deleted.
+
+## Requirements
+
+- iOS 26 or later
+- Xcode 26 or later
+- Xcode 27.1 or later (iOS 27.1 SDK) to build the iPhone Duo features: fold-aware splits and hinge effects. Older Xcode versions build the same app without them.
+
+## Build and run
+
+1. Open `Closet.xcodeproj` and select the **Closet** scheme.
+2. Pick an iPhone simulator and press Run.
+
+To run on your own iPhone, create `Config/Local.xcconfig` with your signing details. The file is git-ignored.
+
+```
+DEVELOPMENT_TEAM = ABCDE12345
+CLOSET_BUNDLE_PREFIX = com.yourname
+```
+
+If you already have the app installed, keep the bundle prefix you used before. iOS stores the app's data under its bundle identifier, so a new identifier installs as a separate, empty app.
+
+## Tests
+
+```sh
+xcodebuild -project Closet.xcodeproj -scheme Closet \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  -derivedDataPath build test CODE_SIGNING_ALLOWED=NO
+```
+
+Unit tests cover:
+- Photo storage and transparency
+- Wash state and outfit history
+- One-time starter imports
+- The iPhone Duo layout math: grid columns, split position at the fold, camera insets, and keeping your place when the phone opens or closes
+
+UI tests cover the main flows: rails, grids, photo zoom, laundry, the wardrobe, the calendar, and app icons. Physical camera capture needs a real iPhone.
+
+## iPhone Duo
+
+The app follows Apple's [iPhone Duo guidance](https://developer.apple.com/iphone-duo/). Layout decisions use size classes and each view's own geometry, never the device model, idiom, interface orientation, or `UIScreen`.
+
+| Pose | Layout |
+| --- | --- |
+| Closed (outer display) | The phone layout, unchanged |
+| Open flat (inner display) | The closet beside the selected piece, divided at the hinge, so folding doesn't move anything. Category grids add columns as they get wider. |
+| Book pose (partly folded) | The closet on one side of the fold and the piece, or its zoomable photo, on the other. The Wardrobe puts the outfit on one side and today's choice on the other, so nothing sits on the crease. |
+| Rotated and folded | The same panes, stacked above and below the fold |
+
+How it works:
+- **Fold position.** `FoldAwareSplit` (in `Closet/AdaptiveLayout.swift`) reads the fold with `GeometryProxy.reservedRegions(kind: .division)`. It also reads the inner camera area (`.occlusion`) so pane content stays clear of it.
+- **Hinge effect.** Folding or unfolding gives the hangers a small sway through `onHingeChange`. Reduce Motion turns it off. Layout never depends on hinge data, as Apple recommends.
+- **SDK guard.** The iOS 27 APIs sit behind a `CLOSET_DUO_SDK` compile flag, which `Config/Closet.xcconfig` sets only for iOS 27 SDKs, and behind `#available(iOS 27.1, *)` at runtime.
+- **Opening and closing.** The piece you were looking at carries over between layouts, and so do the Wardrobe, Laundry, Calendar, Settings, and Add screens if one is open.
+
+`Closet/DuoPreviews.swift` has SwiftUI previews for each pose. They simulate the fold, so you can check the layouts in Xcode 26, which has no Duo simulator.
+
+## Adding garments to the starter wardrobe
+
+1. Copy transparent PNGs into `Closet/Resources/Garments`.
+2. Add an entry for each in `StarterWardrobe.swift`.
+3. Regenerate the project with [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`xcodegen`).
+
+`project.yml` is the XcodeGen source. The generated project is checked in, so you only need XcodeGen if you change the project structure.
+
+## Web companion
+
+`web/` is an optional Next.js site that shows the same wardrobe in a browser. Visitors can swipe the outfit carousels, browse the rails, and share a look as a link.
 
 ```sh
 cd web
@@ -11,32 +89,14 @@ npm run optimize-garments
 npm run dev
 ```
 
-Open `Closet.xcodeproj`, select the Closet scheme and an iPhone simulator, then press Run. To run on your own iPhone, select your Apple development team under Signing & Capabilities and select the connected phone.
+Set `NEXT_PUBLIC_SITE_URL` to your domain when you deploy, so share images get absolute links. On Vercel, the production domain is detected automatically.
 
-The app includes your 17 tops, six bottoms, and two pairs of shoes as retouched transparent PNGs. The home screen has horizontal rails and wooden hangers. Tap Tops or Bottoms to browse a two-column grid. Tap a piece, then its photo, to open a full-screen viewer with pinch zoom up to 6×, panning, double-tap zoom, and a toolbar zoom control. Toolbar controls use the system's Liquid Glass appearance; the empty-rail buttons use SwiftUI's `.glass` button style. Settings supports system, light, and dark appearance. Settings also offers Automatic, Light, and Dark app icons. Light uses the wooden hanger on white; Dark uses a white hanger on a charcoal-to-black gradient. Automatic follows the iPhone icon appearance. The selection is saved by iOS and survives relaunch.
+## Project layout
 
-The plus button opens a photo form with the native iPhone camera, Photos picker, name, category, and initial wash status. Camera access is requested when you tap Take photo. Imports are stored locally with SwiftData and remain after relaunch. Tap a piece to see it or remove it. The included garments import once; deleting one does not restore it on the next launch. To add another prepared batch, copy the PNGs into `Closet/Resources/Garments`, add entries in `StarterWardrobe.swift`, and regenerate the project with XcodeGen. New photo imports preserve transparency but do not automatically retouch photos.
-
-Clothing starts clean. Shoes have no wash status or laundry controls and are excluded from Laundry. Tap Put in laundry after wearing it, then open Laundry to mark individual pieces or the whole batch washed. Undo restores the last washed batch while the sheet is open. The last-washed date and status persist on this iPhone. Existing wardrobes migrate with their photos intact.
-
-Wardrobe, beside Laundry in the bottom toolbar, opens an outfit preview. Swipe tops, bottoms, and shoes independently, or tap a neighboring piece to center it. The center garment grows while its neighbors shrink, with the shirt hem and pants waist close together. This view displays only the item photos, without rails, hangers, or visible names. Shoes sit beneath the pants. The main closet has a separate Shoes row with photo details and a category grid.
-
-The centered shirt and pants show when you last wore them, or "Haven't worn yet." Tap "Wear this today" to save the centered shirt, pants, and shoes. The button becomes "Update today" and replaces that day's outfit when tapped again. Reopening Wardrobe restores today's selections. Calendar in the bottom toolbar shows a week of daily outfit photos; swipe left or right to change weeks, or tap Today to return. Outfit history persists locally and keeps photo snapshots even after a piece is removed. Saving or updating an outfit puts its shirt and pants in Laundry. Shoes stay out of Laundry. The basket icon shows a red count badge while pieces need washing; washing pieces updates the badge, and it disappears when the basket is empty.
-
-ChatGPT sign-in and automatic cleanup are deferred. There is no Mac companion, backend, or OpenAI API connection.
-
-Imagegen smoothed creases and removed the original hangers. A local chroma-key pass supplied genuine alpha transparency after imagegen exported opaque backgrounds. Original photos remain untouched. Missing sleeve cuffs and jean hems in cropped source photos were conservatively completed.
-
-## Build and test
-
-```sh
-xcodebuild -project Closet.xcodeproj -scheme Closet \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
-  -derivedDataPath build test CODE_SIGNING_ALLOWED=NO
-```
-
-Flicking a rail makes the clothes sway up to 8° from their hanger hooks. The spring follows scroll velocity and settles without overshooting, including after repeated direction changes. Only rotation is animated, so clothing photos retain their layout as they enter the rail. Reduce Motion disables the sway.
-
-Tests cover saved photos and wash-state persistence, image resizing and transparency, empty-state navigation, add-sheet cancellation, appearance persistence, one-time wardrobe import, adding the new sweatshirt without changing existing laundry, opening included tops and jeans, grid layout and photo zoom gestures, opening a piece after flicking its rail, individual and batch washing with Undo, and camera-permission recovery. Physical camera capture requires an iPhone.
-
-`project.yml` is the XcodeGen source. The generated Xcode project is included, so XcodeGen is only needed if you change the project structure.
+| Path | Contents |
+| --- | --- |
+| `Closet/` | App source, assets, and starter garments |
+| `ClosetTests/`, `ClosetUITests/` | Unit and UI tests |
+| `Config/` | Shared build settings |
+| `docs/` | Design notes and records of how the garment photos were prepared |
+| `web/` | Optional web companion |

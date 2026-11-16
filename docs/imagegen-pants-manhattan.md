@@ -4,9 +4,8 @@ Built-in imagegen edit mode was used, with three separate calls running in paral
 
 ## washed-gray-jeans
 
-- Original: `/Users/eric/Downloads/IMG_3519.JPG`
+- Original: `IMG_3519.JPG`
 - Edit input: `/tmp/closet-pants-inputs/IMG_3519.png`
-- Generated: `/Users/eric/.codex/generated_images/01a09c65-7645-74b0-945b-79e351fcd892/exec-80480bdc-ce5b-4a47-b81e-e9cf4d4c80b2.png`
 - Intended final: `Closet/Resources/Garments/washed-gray-jeans.png`
 
 Prompt:
@@ -15,9 +14,8 @@ Prompt:
 
 ## brown-baggy-trousers
 
-- Original: `/Users/eric/Downloads/IMG_3524.JPG`
+- Original: `IMG_3524.JPG`
 - Edit input: `/tmp/closet-pants-inputs/IMG_3524.png`
-- Generated: `/Users/eric/.codex/generated_images/01a09c65-7645-74b0-945b-79e351fcd892/exec-f693ac3c-2d0f-4c08-b7a8-2581ea97660f.png`
 - Intended final: `Closet/Resources/Garments/brown-baggy-trousers.png`
 
 Prompt:
@@ -26,9 +24,8 @@ Prompt:
 
 ## cream-manhattan-tee
 
-- Original: `/Users/eric/Downloads/IMG_3522.JPG`
+- Original: `IMG_3522.JPG`
 - Edit input: `/tmp/closet-pants-inputs/IMG_3522.png`
-- Generated: `/Users/eric/.codex/generated_images/01a09c65-7645-74b0-945b-79e351fcd892/exec-e5166d18-fe47-4002-856c-f0b91065ef3d.png`
 - Intended final: `Closet/Resources/Garments/cream-manhattan-tee.png`
 
 Prompt:

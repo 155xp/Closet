@@ -4,9 +4,8 @@ Built-in `image_gen` edit mode was used for three separate images in parallel on
 
 ## brown-hammer-cap
 
-- Original: `/Users/eric/Downloads/IMG_3520.JPG`
+- Original: `IMG_3520.JPG`
 - Imagegen input: `/tmp/closet-cap-knit/IMG_3520.png`
-- Selected imagegen result: `/Users/eric/.codex/generated_images/01a09c64-ff56-7cf3-974b-9e9238f4a8b0/exec-cbab51fb-312a-4329-b9a2-7bb67f8ab0ca.png`
 - Intended app asset: `Closet/Resources/Garments/brown-hammer-cap.png`
 
 Prompt:
@@ -15,9 +14,8 @@ Prompt:
 
 ## cream-knit-sweater
 
-- Original: `/Users/eric/Downloads/IMG_3523.JPG`
+- Original: `IMG_3523.JPG`
 - Imagegen input: `/tmp/closet-cap-knit/IMG_3523.png`
-- Selected imagegen result: `/Users/eric/.codex/generated_images/01a09c64-ff56-7cf3-974b-9e9238f4a8b0/exec-4ea7003e-df07-4a4b-93e7-fc2366ad52eb.png`
 - Intended app asset: `Closet/Resources/Garments/cream-knit-sweater.png`
 
 Prompt:
@@ -26,9 +24,8 @@ Prompt:
 
 ## cream-guinness-sweatshirt
 
-- Original: `/Users/eric/Downloads/IMG_3525.JPG`
+- Original: `IMG_3525.JPG`
 - Imagegen input: `/tmp/closet-cap-knit/IMG_3525.png`
-- Selected imagegen result: `/Users/eric/.codex/generated_images/01a09c64-ff56-7cf3-974b-9e9238f4a8b0/exec-7c5d87f9-a77e-4891-91b4-d0a0c7ff2ac7.png`
 - Intended app asset: `Closet/Resources/Garments/cream-guinness-sweatshirt.png`
 
 Prompt:

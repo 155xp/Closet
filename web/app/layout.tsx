@@ -12,17 +12,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Set NEXT_PUBLIC_SITE_URL to your domain. On Vercel the production domain is picked up automatically.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://closet.enci.dev"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "closet",
     template: "%s · closet",
   },
-  description: "Browse Eric's clothes and send him an outfit.",
+  description: "Browse the closet and suggest an outfit.",
   applicationName: "closet",
   openGraph: {
     title: "closet",
-    description: "Browse Eric's clothes and send him an outfit.",
+    description: "Browse the closet and suggest an outfit.",
     type: "website",
     siteName: "closet",
   },
